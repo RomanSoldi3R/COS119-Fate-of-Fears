@@ -139,7 +139,23 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="COS I Project.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Fate of Fears.cpp" />
+    <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="Knight.cpp" />
+    <ClCompile Include="Sorcerer.cpp" />
+    <ClCompile Include="Spell.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Art.h" />
+    <ClInclude Include="Hero.h" />
+    <ClInclude Include="Knight.h" />
+    <ClInclude Include="Menu Functions.h" />
+    <ClInclude Include="Sorcerer.h" />
+    <ClInclude Include="Spell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
