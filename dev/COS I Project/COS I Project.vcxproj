@@ -153,6 +153,7 @@
     <ClInclude Include="Art.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Knight.h" />
+    <ClInclude Include="Menu Functions.h" />
     <ClInclude Include="Sorcerer.h" />
     <ClInclude Include="Spell.h" />
   </ItemGroup>

@@ -67,13 +67,13 @@ void Knight::TakeTurn(Character& target)
 
 	bool running = true;													// variables
 	std::string input;
+	int choice = 0;
 	int damage = rand() % (11) + GetAttackPower();
 	int critChance = rand() % 10;
 
 	while (running)															// start of the loop
 	{
 		getline(std::cin, input);
-		int choice;
 
 		try																	// try/catch to prevent crashes from non number inputs
 		{
