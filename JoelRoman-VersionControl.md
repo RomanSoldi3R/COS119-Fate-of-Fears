@@ -4,10 +4,10 @@ Update this document where indicated [look for the brackets!]. Replace text insi
 
 <br>
 
-## [ Course Name <-- Replace all text in brackets ]
+## [ COS119-L ]
 
-- **[ Student Name ]**
-- **[ Due Date ]**
+- **[ Joel Roman ]**
+- **[ 10/4/26]**
 
 This paper addresses some of the topic matter covered in research and activity this week. Be sure to include reference links below to the research and information you used to complete this assignment.
 
@@ -47,7 +47,10 @@ Version control, also known as revision control, records changes to a file or se
 
 **1. There are three types of version control.**
 
-[ Name & describe the three types of version control here.]
+[ Joel Roman 
+- Local Version Control (LVCS) - In this approach, you use a simple database on your local machine to keep track of changes to files. Instead of copying files manually
+- Centralized Version Control (CVCS) - To solve the collaboration issue, centralized systems introduced a single remote server that holds all versions of the project files. Developers "check out" files to work on them and "commit" their changes back directly to the server
+- Distributed Version Control (DVCS) - This is the modern standard for software development. Instead of just checking out the latest snapshot of the files, developers use tools to **clone the entire codebase and its complete history** locally. If the central server crashes, any developer's local repository can be used to restore the project.]
 
 **2. Using Terminal, there are also essential Git commands to know.**
 
@@ -65,22 +68,22 @@ List the correct Git commands to do the actions listed below in Terminal. Replac
 **3. Connecting to GitHub using Terminal.**
 HTTPS is the the correct way to connect to GitHub in this course. Describe how you connect to GitHub from Terminal using this protocol. What steps do you take?
 
-[ Describe the steps to connect Terminal to a GitHub repo here ]
+[ To connect to GitHub from your Terminal using HTTPS, you can authenticate using either the modern GitHub CLI method or the traditional Personal Access Token (PAT) method. Because GitHub no longer accepts account passwords in the terminal, one of these authentication options is required ]
 
 **4. Using .gitignore and Why it's Important**  
 Most repositories contain a .gitignore file.
 
 - What is the purpose of this file?
   <br>
-  [Fill in answer here]
+  [to explicitly tell Git which files and directories to ignore and leave out when tracking changes in a project]
 
 - What is the "**.DS_Store**" file and why would you want to ignore it?
   <br>
-  [Fill in answer here]
+  [a hidden metadata file created automatically by macOS Finder to remember folder display settings like icon positions and window sizes]
 
 - What other file or folder would you want to add to a .gitignore file and why?
   <br>
-  [Fill in answer here]
+  [You should add environment configuration files to prevent private passwords, database URLs, and API keys from leaking into public or shared code repositories.]
 
 <br>
 
@@ -94,13 +97,13 @@ Replace the example references below with your own links and recommended resourc
 [Site Address](https://www.someaddress.com/full/url/)
 
 **Three Types of Version Control**  
-[Site Address](https://www.someaddress.com/full/url/)
+[Site Address](https://www.geeksforgeeks.org/git/version-control-systems/)
 
 **Git Commands**  
 [Site Address](https://www.someaddress.com/full/url/)
 
 **Connecting to GitHub using Terminal**  
-[Site Address](https://www.someaddress.com/full/url/)
+[Site Address](https://coderefinery.github.io/installation/ssh/)
 
 **Using .gitignore and Why it's Important**  
-[Site Address](https://www.someaddress.com/full/url/)
+[Site Address](https://github.com/orgs/community/discussions/165862)
