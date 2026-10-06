@@ -24,8 +24,10 @@ void Character::TakeDmg(int dmg)
 
 void Character::PrintStats() const
 {
-	std::cout << "Name: " << name << std::endl;
-	std::cout << "Health: " << health << "/" << maxHealth << std::endl;
+	std::cout << "=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=" << std::endl;
+	std::cout << "|| Class: " << name << std::endl;
+	std::cout << "|| Health: " << health << "/" << maxHealth << std::endl;
+	std::cout << "=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=" << std::endl;
 }
 
 void Character::Heal(int heal)

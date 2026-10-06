@@ -48,10 +48,10 @@ void Knight::TakeDmg(int dmg)
 
 void Knight::PrintStats() const
 {
-	std::cout << "<=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=>" << std::endl;
+	std::cout << "=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=" << std::endl;
 	std::cout << "|| Class: " << GetName() << " \t\t||" << std::endl;
 	std::cout << "|| Health: " << GetHealth() << "/" << GetMaxHealth() << "\tStamina: " << stamina << " ||" << std::endl;
-	std::cout << "<=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=>" << std::endl;
+	std::cout << "=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=" << std::endl;
 }
 
 void Knight::TakeTurn(Character& target)
@@ -68,7 +68,7 @@ void Knight::TakeTurn(Character& target)
 	bool running = true;													// variables
 	std::string input;
 	int choice = 0;
-	int damage = rand() % (11) + GetAttackPower();
+	int damage = rand() % 11 + GetAttackPower();
 	int critChance = rand() % 10;
 
 	while (running)															// start of the loop
@@ -93,7 +93,7 @@ void Knight::TakeTurn(Character& target)
 			{
 				int critDamage = damage * 2;
 				target.TakeDmg(critDamage);									// deal twice the normal damage
-				std::cout << "Critical Hit! " << GetName() << " unleashed a strike for " << critDamage << " damage!" << std::endl;
+				std::cout << "Critical Hit! " << GetName() << " unleashes a massive strike for " << critDamage << " damage!" << std::endl;
 			}
 			else
 			{

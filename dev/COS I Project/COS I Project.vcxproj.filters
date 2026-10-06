@@ -24,7 +24,7 @@
     <ClCompile Include="Knight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sorcerer.cpp">
+    <ClCompile Include="Sorceress.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
@@ -36,6 +36,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Goblin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hero.h">
@@ -44,7 +47,7 @@
     <ClInclude Include="Knight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sorcerer.h">
+    <ClInclude Include="Sorceress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
@@ -59,7 +62,10 @@
     <ClInclude Include="Art.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu Functions.h">
+    <ClInclude Include="Helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Goblin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

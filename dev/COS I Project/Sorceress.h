@@ -5,14 +5,14 @@
 #include <vector>
 
 
-class Sorcerer : public Hero
+class Sorceress : public Hero
 {
 	int mana = 100;
 	int potionCount;
 
 public:
 
-	Sorcerer(const std::string& _name, int _health, int _attackPower);		// constructor
+	Sorceress(const std::string& _name, int _health, int _attackPower);		// constructor
 
 	void RecoverMana(int amount);											// recover mana method
 

@@ -1,13 +1,13 @@
-#include "Sorcerer.h"
+#include "Sorceress.h"
 
 
-Sorcerer::Sorcerer(const std::string& _name, int _health, int _attackPower) :
+Sorceress::Sorceress(const std::string& _name, int _health, int _attackPower) :
 	Hero(_name, _health, _attackPower),
 	mana(100),
 	potionCount(10)
 {}
 
-void Sorcerer::RecoverMana(int amount)
+void Sorceress::RecoverMana(int amount)
 {
 	if (amount <= 0)
 	{
@@ -20,17 +20,17 @@ void Sorcerer::RecoverMana(int amount)
 	}
 }
 
-void Sorcerer::TakeDmg(int dmg)
+void Sorceress::TakeDmg(int dmg)
 {
 	Character::TakeDmg(dmg * 2);
 }
 
-void Sorcerer::PrintStats() const
+void Sorceress::PrintStats() const
 {
 
 }
 
-void Sorcerer::TakeTurn(Character& target)
+void Sorceress::TakeTurn(Character& target)
 {
 	system("cls");															// clears the screen
 	target.PrintStats();													// print target's stats
@@ -95,7 +95,7 @@ void Sorcerer::TakeTurn(Character& target)
 	}
 }
 
-void Sorcerer::TurnOver()
+void Sorceress::TurnOver()
 {
 	RecoverMana(15);
 }
