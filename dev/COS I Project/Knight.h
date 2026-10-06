@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <conio.h>
 
 
 class Knight : public Hero

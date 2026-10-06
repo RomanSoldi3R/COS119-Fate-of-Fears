@@ -66,29 +66,15 @@ void Knight::TakeTurn(Character& target)
 	std::cout << "3) Health Potion (" << potionCount << " left)" << std::endl;
 
 	bool running = true;													// variables
-	std::string input;
-	int choice = 0;
 	int damage = rand() % 11 + GetAttackPower();
 	int critChance = rand() % 10;
 
 	while (running)															// start of the loop
 	{
-		getline(std::cin, input);
-
-		try																	// try/catch to prevent crashes from non number inputs
+		int key = _getch();
+		
+		if (key == '1')							// Attack
 		{
-			choice = stoi(input);
-		}
-		catch (const std::exception&)
-		{
-			std::cout << "::Please choose from the available options:: (1-3)" << std::endl;
-			continue;
-		}
-
-		switch (choice)														// menu
-		{
-		case 1:							// attack
-			
 			if (critChance == 1)											// if crit chance lands on 1 (out of 10)
 			{
 				int critDamage = damage * 2;
@@ -103,14 +89,16 @@ void Knight::TakeTurn(Character& target)
 
 			running = false;
 			break;
+		}
 
-		case 2:							// block
+		if (key == '2')							// Block
+		{
 
 			if (stamina >= 25)												// if knight's stamina is greater or equal to 25
 			{
 				blocking = true;											// the knight blocks
 				std::cout << GetName() << " braces for impact" << std::endl;
-				running = false;										
+				running = false;
 				break;
 			}
 			else
@@ -118,9 +106,10 @@ void Knight::TakeTurn(Character& target)
 				std::cout << "Not enough stamina!" << std::endl;			// else choose from the menu again 
 				continue;
 			}
+		}
 
-		case 3:							// potion
-
+		if (key == '3')							// Use potion
+		{
 			if (potionCount <= 0)											// if you have no potions left
 			{
 				std::cout << "You have " << potionCount << " potions left!" << std::endl;
@@ -140,14 +129,10 @@ void Knight::TakeTurn(Character& target)
 				break;
 			}
 
-		default:						// incorrect choice
-
-			std::cout << "::Please choose from the available options:: (1-3)" << std::endl;
-			continue;
 		}
+		
 	}
-
-	getline(std::cin, input);
+	
 }
 
 void Knight::TurnOver()
