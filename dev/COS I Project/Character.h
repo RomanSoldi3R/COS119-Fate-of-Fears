@@ -16,7 +16,7 @@ public:
 
 	virtual void TakeDmg(int dmg);						// method to control the private variable "health" when a character takes damage
 	virtual void PrintStats() const;					// method to print stats
-	virtual void TakeTurn(Character& target) = 0;		// pure virtual method makes it so it distinguishes between each enemy's abilities and stops any derived class that doesn't have its own TakeTurn method.
+	virtual void TakeTurn(Character& target) = 0;		// pure virtual method makes it so it distinguishes between each units abilities and stops any derived class that doesn't have its own TakeTurn method.
 
 	void Heal(int heal);								// method to control the private variable "health" when a character heals
 	bool IsAlive() const;								// method to check the status of the character
@@ -26,7 +26,7 @@ public:
 	int GetMaxHealth() const;
 	int GetAttackPower() const;
 
-	virtual ~Character();								// virtual destructor so when my Hero* gets destroyed, it runs from knight/sorcerer -> hero -> character. Without virtual it would start at hero, skipping knight/sorcerer.
+	virtual ~Character();								// virtual destructor so when my pointers get destroyed, it runs from the current object back to -> character. Without virtual it would start at hero/enemy, skipping the other classes.
 
 };
 

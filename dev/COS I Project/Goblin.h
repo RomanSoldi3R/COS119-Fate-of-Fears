@@ -1,5 +1,7 @@
 #pragma once
 #include "Enemy.h"
+#include <cstdlib>
+#include "helper.h"
 
 
 class Goblin : public Enemy

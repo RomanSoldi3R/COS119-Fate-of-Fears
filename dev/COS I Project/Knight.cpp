@@ -56,14 +56,11 @@ void Knight::PrintStats() const
 
 void Knight::TakeTurn(Character& target)
 {
-	system("cls");															// clears the screen
 	blocking = false;														// each turn set blocking to false
-	target.PrintStats();													// print target's stats
-	PrintStats();															// print knight's stats
 
-	std::cout << "1) Knight Slash" << std::endl;							// print menu
-	std::cout << "2) Shield Up" << std::endl;
-	std::cout << "3) Health Potion (" << potionCount << " left)" << std::endl;
+	std::cout << "1. Knight Slash" << std::endl;							// print menu
+	std::cout << "2. Shield Up" << std::endl;
+	std::cout << "3. Health Potion (" << potionCount << " left)" << std::endl;
 
 	bool running = true;													// variables
 	int damage = rand() % 11 + GetAttackPower();
@@ -124,7 +121,7 @@ void Knight::TakeTurn(Character& target)
 			{
 				Heal(30);													// heal up by 30 hp
 				potionCount = potionCount - 1;								// uses up 1 potion
-				std::cout << "You feel rejuvenated! " << "(" << potionCount << " left)" << std::endl;
+				std::cout << "You feel rejuvenated " << "(" << potionCount << " left)" << std::endl;
 				running = false;
 				break;
 			}
@@ -132,7 +129,8 @@ void Knight::TakeTurn(Character& target)
 		}
 		
 	}
-	
+
+	Helper::Pause();
 }
 
 void Knight::TurnOver()

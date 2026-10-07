@@ -1,9 +1,9 @@
 #pragma once
 #include "Hero.h"
-#include <cstdlib>
 #include <iostream>
 #include <string>
-#include <conio.h>
+#include <cstdlib>
+#include "Helper.h"
 
 
 class Knight : public Hero

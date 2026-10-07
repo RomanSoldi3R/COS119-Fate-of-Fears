@@ -7,10 +7,6 @@ Goblin::Goblin(const std::string& _name, int _health, int _attackPower) :
 
 void Goblin::TakeTurn(Character & target)
 {
-	system("cls");													// clears the screen
-	PrintStats();													// print goblin's stats
-	target.PrintStats();											// print target's stats
-
 	int damage = rand() % 11 + GetAttackPower();
 	int critChance = rand() % 10;
 
@@ -25,6 +21,8 @@ void Goblin::TakeTurn(Character & target)
 		target.TakeDmg(damage);										// else do normal damage
 		std::cout << GetName() << " hits " << target.GetName() << " for " << damage << std::endl;
 	}
+
+	Helper::Pause();
 }
 
 

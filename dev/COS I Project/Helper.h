@@ -1,14 +1,14 @@
 #pragma once
-#include <iostream>
-#include <vector>
-#include <ctime>
-#include <conio.h>
-#include <random>
+#include <iostream>		// standard I/O stream library
+#include <vector>		// std::vector
+#include <cstdlib>		// srand
+#include <ctime>		// time
+#include <conio.h>		// _getch()
+#include <random>		// std::random_device
 
 
 namespace Helper
 {
-
 
 	static bool IsInteger(char* input)
 	{
@@ -115,10 +115,10 @@ namespace Helper
 
 	static bool CoinFlip()
 	{
-		std::random_device rd;  // Obtain a seed from the system
-		std::mt19937 gen(rd()); // Seed the generator
-		std::uniform_int_distribution<> distrib(0, 1); // Define the range
-		int random_number = distrib(gen); // Generate the number
+		std::random_device rd;									// Obtain a seed from the system
+		std::mt19937 gen(rd());									// Seed the generator
+		std::uniform_int_distribution<> distrib(0, 1);			// Define the range
+		int random_number = distrib(gen);						// Generate the number
 
 		return random_number;
 	}
@@ -127,18 +127,46 @@ namespace Helper
 	{
 		while (true)
 		{
-			int key = _getch();		// _getch() = accepts one key press
+			int key = _getch();									// _getch() = accepts one key press
 
-			if (key == 13)			// Enter
+			if (key == 13)										// Enter
 			{
 				return true;
 			}
-			if (key == 27)			// Esc
+			if (key == 27)										// Esc
 			{
 				return false;
 			}
 		}
 	}
+
+	static void Pause()
+	{
+		std::cout << "\033[53C" << "C=|=====>\n" << std::endl;
+
+		while (true)
+		{
+			int key = _getch();
+			
+			if (key == 13)
+			{
+				break;
+			}
+			if (key == 27)
+			{
+				std::cout << "\r\033[2K";
+				std::cout << "\033[45C" << "Press enter to continue...";
+			}
+		}
+	}
+
+
+
+
+
+
+
+
 
 
 
