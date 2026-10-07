@@ -2,11 +2,14 @@
 #include <cstdlib>
 #include <ctime>
 #include <conio.h>
+#include "Helper.h"
+#include "Art.h"
 #include "Character.h"
 #include "Knight.h"
 #include "Sorceress.h"
-#include "Art.h"
-#include "Helper.h"
+#include "Goblin.h"
+#include "battle.h"
+
 
 int main()
 {
@@ -27,6 +30,9 @@ int main()
 		if (Helper::EnterEsc())													// if player presses enter continue to hero menu
 		{
 			heroMenu = true;													// resets the heroMenu variable to true in case the player hits esc changing it to false, you can enter the hero menu again
+			std::unique_ptr<Hero> hero;
+
+			// (Intro dialog coded here)
 
 			while (heroMenu)													// start of the hero menu loop
 			{
@@ -35,21 +41,19 @@ int main()
 				std::cout << "\033[50C" << "Select Class" << std::endl;
 				std::cout << "\033[18C" << "1: Knight" << "\033[60C" << "2: Sorceress" << std::endl;
 
-				Hero* knight = nullptr;
-				Hero* sorceress = nullptr;
-
 				int key = _getch();												// accepts one key press
 
 				if (key == '1')													// if key press is 1 - create knight
 				{
 					
-					knight = new Knight("Knight", 100, 25);
+					hero = std::make_unique<Knight>("Knight", 100, 25);
 					heroMenu = false;
 					
 				}
 				if (key == '2')													// if key press is 2 - create sorcerer
 				{
-					
+					hero = std::make_unique<Sorceress>("Sorceress", 100, 10);
+					heroMenu = false;
 				}
 				if (key == esc)													// if key press is esc - hero menu is set to false which goes back to the title menu
 				{
@@ -58,24 +62,16 @@ int main()
 				
 			}
 
+			if (hero != nullptr)
+			{
+				// (Castle entrance and paths start here)
 
+				bool result;
 
+				Goblin goblin("Weak Goblin", 100, 15);
+				result = Battle::Fight(*hero,goblin);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			}
 
 		}
 		else																	// else set title menu to false which exits the game
