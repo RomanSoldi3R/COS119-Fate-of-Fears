@@ -22,14 +22,6 @@ void Character::TakeDmg(int dmg)
 	}
 }
 
-void Character::PrintStats() const
-{
-	std::cout << "=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=" << std::endl;
-	std::cout << "|| Class: " << name << std::endl;
-	std::cout << "|| Health: " << health << "/" << maxHealth << std::endl;
-	std::cout << "=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=" << std::endl;
-}
-
 void Character::Heal(int heal)
 {
 	if (heal <= 0)					// if healing amount is less than or equal to 0

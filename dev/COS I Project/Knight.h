@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include "Helper.h"
+#include "Art.h"
 
 
 class Knight : public Hero
@@ -18,9 +19,9 @@ public:
 
 	void RecoverStamina(int amount);									// recover stamina method
 
-	void TakeDmg(int dmg) override;										// overrides
-	void PrintStats() const override;
-	void TakeTurn(Character& target) override;
+	void PrintStats() const override;									// overrides
+	void TakeDmg(int dmg) override;
+	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;
 
 };

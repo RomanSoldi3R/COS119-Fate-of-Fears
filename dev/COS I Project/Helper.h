@@ -5,6 +5,8 @@
 #include <ctime>		// time
 #include <conio.h>		// _getch()
 #include <random>		// std::random_device
+#include <thread>		// std::this_thread::sleep_for
+#include <chrono>		// std::chrono::milliseconds(...)
 
 
 namespace Helper
@@ -142,7 +144,7 @@ namespace Helper
 
 	static void Pause()
 	{
-		std::cout << "\033[53C" << "C=|=====>\n" << std::endl;
+		std::cout << "\033[54C" << "C=|======>\n" << std::endl;
 
 		while (true)
 		{

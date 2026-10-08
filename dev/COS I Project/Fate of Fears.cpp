@@ -2,19 +2,28 @@
 #include <cstdlib>
 #include <ctime>
 #include <conio.h>
+#include <memory>
 #include "Helper.h"
 #include "Art.h"
 #include "Character.h"
 #include "Knight.h"
 #include "Sorceress.h"
 #include "Goblin.h"
-#include "battle.h"
+#include "Battle.h"
 
 
 int main()
 {
 	srand(time(NULL));
 	
+	Knight joel("Knight", 100, 25);
+	Goblin poop("Goblin", 50, 15);
+
+	Art::TitleArt();
+	joel.PrintStats();
+	poop.PrintStats();
+	Helper::Pause();
+
 	bool titleMenu = true;														// variables
 	bool heroMenu = true;
 	int esc = 27;
@@ -65,11 +74,20 @@ int main()
 			if (hero != nullptr)
 			{
 				// (Castle entrance and paths start here)
+				bool castle = true;
 
-				bool result;
+				while (castle)
+				{
+					bool result = true;
 
-				Goblin goblin("Weak Goblin", 100, 15);
-				result = Battle::Fight(*hero,goblin);
+					Goblin goblin("Weak Goblin", 50, 15);
+					result = Battle::Sequence(*hero, goblin);
+
+					if (result == false)
+					{
+						castle = false;
+					}
+				}
 
 			}
 

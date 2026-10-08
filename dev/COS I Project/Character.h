@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-
+ 
 
 class Character
 {
@@ -15,8 +15,6 @@ public:
 	Character(const std::string& _name, int _health, int _attackPower);		// constructor
 
 	virtual void TakeDmg(int dmg);						// method to control the private variable "health" when a character takes damage
-	virtual void PrintStats() const;					// method to print stats
-	virtual void TakeTurn(Character& target) = 0;		// pure virtual method makes it so it distinguishes between each units abilities and stops any derived class that doesn't have its own TakeTurn method.
 
 	void Heal(int heal);								// method to control the private variable "health" when a character heals
 	bool IsAlive() const;								// method to check the status of the character
