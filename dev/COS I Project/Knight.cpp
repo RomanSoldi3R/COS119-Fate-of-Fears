@@ -29,11 +29,12 @@ void Knight::RecoverStamina(int amount)
 
 void Knight::PrintStats() const
 {
-	std::cout << "\t\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-	std::cout << "\t\033[33m||\033[0m" << "\r\033[27C" << GetName() << "\r\033[49C" << "\033[33m||\033[0m" << std::endl;
-	std::cout << "\t\033[33m||\033[0m Health: " << "\r\033[41C\033[32m" << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C" << "\033[33m||\033[0m" << std::endl;
-	std::cout << "\t\033[33m||\033[0m Stamina: " << "\r\033[45C\033[33m" << stamina << "\033[0m\r\033[49C" << "\033[33m||\033[0m" << std::endl;
-	std::cout << "\t\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	Art::KnightIcon();
+	std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	std::cout << "\r\033[8C\033[33m||\033[0m" << "\r\033[27C" << GetName() << "\r\033[49C" << "\033[33m||\033[0m" << std::endl;
+	std::cout << "\r\033[8C\033[33m||\033[0m Health: " << "\r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C" << "\033[33m||\033[0m" << std::endl;
+	std::cout << "\r\033[8C\033[33m||\033[0m Stamina: " << "\r\033[45C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "\033[0m\r\033[49C" << "\033[33m||\033[0m" << std::endl;
+	std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 }
 
 void Knight::TakeDmg(int dmg)
@@ -61,9 +62,9 @@ std::string Knight::TakeTurn(Character& target)
 {
 	blocking = false;														// each turn set blocking to false
 
-	std::cout << "1. Knight Slash" << std::endl;							// print menu
-	std::cout << "2. Shield Up" << std::endl;
-	std::cout << "3. Health Potion (" << potionCount << " left)" << std::endl;
+	std::cout << "\t1. Knight Slash" << std::endl;							// print menu
+	std::cout << "\t2. Shield Up" << std::endl;
+	std::cout << "\t3. Health Potion (" << potionCount << " left)" << std::endl;
 
 	int damage = rand() % 11 + GetAttackPower();							// variables
 	int critChance = rand() % 10;

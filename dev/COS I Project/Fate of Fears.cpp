@@ -15,14 +15,6 @@
 int main()
 {
 	srand(time(NULL));
-	
-	Knight joel("Knight", 100, 25);
-	Goblin poop("Goblin", 50, 15);
-
-	Art::KnightIcon();
-	joel.PrintStats();
-	poop.PrintStats();
-	Helper::Pause();
 
 	bool titleMenu = true;														// variables
 	bool heroMenu = true;
@@ -74,9 +66,9 @@ int main()
 			if (hero != nullptr)
 			{
 				// (Castle entrance and paths start here)
-				bool castle = true;
+				bool inCastle = true;
 
-				while (castle)
+				while (inCastle)
 				{
 					bool result = true;
 
@@ -85,8 +77,14 @@ int main()
 
 					if (result == false)
 					{
-						castle = false;
+						inCastle = false;
+						break;
 					}
+					else
+					{
+						break;
+					}
+
 				}
 
 			}

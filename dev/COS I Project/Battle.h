@@ -16,10 +16,13 @@ namespace Battle
 			system("cls");
 			_hero.PrintStats();
 			_enemy.PrintStats();
+
 			action = _hero.TakeTurn(_enemy);
+			
 			system("cls");
 			_hero.PrintStats();
 			_enemy.PrintStats();
+			
 			std::cout << action << std::endl;
 			Helper::Pause();
 
@@ -32,11 +35,13 @@ namespace Battle
 			system("cls");
 			_hero.PrintStats();
 			_enemy.PrintStats();
-			Helper::Pause();
+
 			action = _enemy.TakeTurn(_hero);
+			
 			system("cls");
 			_hero.PrintStats();
 			_enemy.PrintStats();
+			
 			std::cout << action << std::endl;
 			Helper::Pause();
 
