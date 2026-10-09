@@ -13,6 +13,7 @@ class Sorceress : public Hero
 	int mana = 100;
 	bool shield;
 	int potionCount;
+	int elementalPower;
 
 public:
 
@@ -21,7 +22,7 @@ public:
 	void RecoverMana(int amount);											// recover mana method
 
 	void PrintStats() const override;										// overrides
-	void TakeDmg(int dmg) override;
+	void TakeDmg(float physical, float elemental = 0.0f) override;
 	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;
 

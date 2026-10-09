@@ -37,11 +37,21 @@ void Knight::PrintStats() const
 	std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 }
 
-void Knight::TakeDmg(int dmg)
+void Knight::TakeDmg(float physical, float elemental)
 {
 	if (blocking)															// if blocking
 	{
-		Character::TakeDmg(dmg / 2);										// damage taken is reduced by 50%
+		Character::TakeDmg(physical / 2.5);									// damage taken is reduced by 60%
+		if (stamina <= 25)													// if current stamina is less than or equal to 25
+		{
+			stamina = 0;													// set stamina to 0
+			blocking = false;												// breaks the block
+		}
+		else
+		{
+			stamina = stamina - 25;											// else lose 25 stamina
+		}
+		Character::TakeDmg(elemental / 1.25);								// damage taken is reduced by 20%
 		if (stamina <= 25)													// if current stamina is less than or equal to 25
 		{
 			stamina = 0;													// set stamina to 0
@@ -54,7 +64,8 @@ void Knight::TakeDmg(int dmg)
 	}
 	else
 	{
-		Character::TakeDmg(dmg);											// else if not blocking, take normal damage
+		Character::TakeDmg(physical);										// else if not blocking, take physical damage
+		Character::TakeDmg(elemental);										// and take elemental damage
 	}
 }
 
@@ -160,19 +171,18 @@ std::string Knight::TakeTurn(Character& target)
 				continue;
 			}
 			else
-			{
+			{			
 				before = GetHealth();
-				Heal(30);													// heal up by 30 hp
+				potionCount = potionCount - 1;								// uses up 1 potion
+				Heal(30);													// heals 30 hp
 				after = GetHealth();
 				total = after - before;
-				potionCount = potionCount - 1;								// uses up 1 potion
 
-				result = "\t::\033[32m+" + std::to_string(total) + " Health\033[0m (" + std::to_string(potionCount) + " left)::";
-				break;
+				std::cout << "\t::\033[32m+" << total << " Health\033[0m (" << potionCount << " left)::";
+				continue;
 			}
 
 		}
-		
 	
 	}
 	std::cout << "\r\033[1A\033[2K";

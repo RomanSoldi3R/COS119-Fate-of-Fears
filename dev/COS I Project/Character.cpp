@@ -8,14 +8,20 @@ Character::Character(const std::string& _name, int _health, int _attackPower) :
 	attackPower(_attackPower)
 {}
 
-void Character::TakeDmg(int dmg)
+void Character::TakeDmg(float physical, float elemental)
 {
-	if (dmg <= 0)					// if damage taken is less than or equal to 0
+	if (physical <= 0)				// if physical damage taken is less than or equal to 0
 	{
-		dmg = 0;					// damage taken gets set to 0
+		physical = 0;				// damage taken gets set to 0
 	}
-	health = health - dmg;			// health - damage taken gets stored in health
-
+	health = health - physical;		// physical damage taken is stored in health
+	
+	if (elemental <= 0)				// if elemental damage taken is less than or equal to 0
+	{
+		elemental = 0;				// damage taken gets set to 0
+	}
+	health = health - elemental;	// elemental damage taken is stored in health
+	
 	if (health < 0)					// if health is less than 0 after the damage taken
 	{
 		health = 0;					// health gets set to 0

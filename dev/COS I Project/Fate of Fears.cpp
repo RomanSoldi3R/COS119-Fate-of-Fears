@@ -71,7 +71,7 @@ int main()
 				while (castle)
 				{
 					bool result = true;
-
+					
 					Goblin goblin("Weak Goblin", 50, 15);
 					result = Battle::Sequence(*hero, goblin);
 
