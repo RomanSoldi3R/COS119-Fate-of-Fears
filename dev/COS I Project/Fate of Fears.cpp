@@ -19,7 +19,7 @@ int main()
 	Knight joel("Knight", 100, 25);
 	Goblin poop("Goblin", 50, 15);
 
-	Art::TitleArt();
+	Art::KnightIcon();
 	joel.PrintStats();
 	poop.PrintStats();
 	Helper::Pause();
