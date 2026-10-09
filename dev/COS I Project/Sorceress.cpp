@@ -38,8 +38,9 @@ std::string Sorceress::TakeTurn(Character& target)
 	std::cout << "3) Book of Spells" << potionCount << " left)" << std::endl;
 
 	bool running = true;													// variables
-	int damage = rand() % 11 + GetAttackPower();							// variables
-	int critChance = rand() % 10;
+	int damage = rand() % 11 + GetAttackPower();
+	int hitChance = rand() % 20;											// 5% chance
+	int critChance = rand() % 10;											// 10% chance
 	int critDamage = damage * 2;
 	int before = 0;
 	int after = 0;

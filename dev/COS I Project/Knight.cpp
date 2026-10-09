@@ -67,38 +67,64 @@ std::string Knight::TakeTurn(Character& target)
 	std::cout << "\t3. Health Potion (" << potionCount << " left)" << std::endl;
 
 	int damage = rand() % 11 + GetAttackPower();							// variables
-	int critChance = rand() % 10;
+	int hitChance = rand() % 20;											// 5% chance
+	int critChance = rand() % 10;											// 10% chance
 	int critDamage = damage * 2;
 	int before = 0;
 	int after = 0;
-	int finalResult = 0;
+	int total = 0;
 	std::string result;
 
 	while (true)															// start of the loop
 	{
 		int key = _getch();
-		
+		std::cout << "\r\033[2K";
+
 		if (key == '1')							// Attack
 		{
-			if (critChance == 1)											// if crit chance lands on 1 (out of 10)
+			if (hitChance != 1)												// 5% chance to miss
 			{
-				before = target.GetHealth();
-				target.TakeDmg(critDamage);									// deal twice the normal damage
-				after = target.GetHealth();
-				finalResult = before - after;
+				if (critChance == 1)										// 10% chance to crit
+				{
+					before = target.GetHealth();
+					target.TakeDmg(critDamage);								// deal twice the normal damage
+					after = target.GetHealth();
+					total = before - after;
+					
+					if (total >= before)									// if overkill
+					{
+						result = "\t::Critical Hit!::"
+							"\r\033[2K\t::You UNLEASH a massive blow for \033[33m" + std::to_string(critDamage) + "\033[0m damage!::"
+							"\r\033[2K\t::OVERKILL!::";
+					}
+					else
+					{
+						result = "\t::Critical Hit!::"
+							"\r\033[2K\t::You UNLEASH a massive blow for \033[33m" + std::to_string(total) + "\033[0m damage!::";
+					}
+				}
+				else
+				{
+					before = target.GetHealth();
+					target.TakeDmg(damage);									// else do normal damage
+					after = target.GetHealth();
+					total = before - after;
 
-				result = "::Critical Hit! " + GetName() + " unleashed a massive strike for \033[33m" + std::to_string(finalResult) + "\033[0m!::";
+					if (total >= before)									// if kill
+					{
+						result = "\t::You strike for " + std::to_string(damage) + " damage::"
+							"\r\033[2K\t::You killed the " + target.GetName() + "!::";
+					}
+					else
+					{
+						result = "\t::You strike for " + std::to_string(total) + " damage::";
+					}
+				}
 			}
 			else
 			{
-				before = target.GetHealth();
-				target.TakeDmg(damage);										// else do normal damage
-				after = target.GetHealth();
-				finalResult = before - after;
-
-				result = "::" + GetName() + " slashed " + target.GetName() + " for " + std::to_string(finalResult) + "::";
+				result = "\t::You missed::";
 			}
-
 			break;
 		}
 
@@ -108,13 +134,13 @@ std::string Knight::TakeTurn(Character& target)
 			if (stamina >= 25)												// if knight's stamina is greater or equal to 25
 			{
 				blocking = true;											// the knight blocks
-				result = "::" + GetName() + " braces for impact::";
+				result = "\t::" + GetName() + " braces for impact::";
 				break;
 			}
 			else
 			{
 				std::cout << "\r\033[2K";
-				std::cout << "::Not enough stamina!::";		// else choose from the menu again 
+				std::cout << "\t::\033[31mNot enough stamina!\033[0m::";	// else choose from the menu again 
 				continue;
 			}
 		}
@@ -124,13 +150,13 @@ std::string Knight::TakeTurn(Character& target)
 			if (potionCount <= 0)											// if you have no potions left
 			{
 				std::cout << "\r\033[2K";
-				std::cout << "::You have \033[31m0\033[0m potions left!::";
+				std::cout << "\t::\033[31mYou have 0 potions left!\033[0m::";
 				continue;
 			}
 			else if (GetHealth() >= GetMaxHealth())
 			{
 				std::cout << "\r\033[2K";
-				std::cout << "::You have full health::";
+				std::cout << "\t::\033[31mYour HP is full\033[0m::";
 				continue;
 			}
 			else
@@ -138,17 +164,22 @@ std::string Knight::TakeTurn(Character& target)
 				before = GetHealth();
 				Heal(30);													// heal up by 30 hp
 				after = GetHealth();
-				finalResult = after - before;
+				total = after - before;
 				potionCount = potionCount - 1;								// uses up 1 potion
 
-				result = "::You healed for \033[32m" + std::to_string(finalResult) + "\033[0m (" + std::to_string(potionCount) + " left)::";
+				result = "\t::\033[32m+" + std::to_string(total) + " Health\033[0m (" + std::to_string(potionCount) + " left)::";
 				break;
 			}
 
 		}
 		
+	
 	}
+	std::cout << "\r\033[1A\033[2K";
+	std::cout << "\r\033[1A\033[2K";
+	std::cout << "\r\033[1A\033[2K";
 
+	Helper::Type(result, 45);
 	return result;
 }
 

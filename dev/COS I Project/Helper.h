@@ -7,6 +7,7 @@
 #include <random>		// std::random_device
 #include <thread>		// std::this_thread::sleep_for
 #include <chrono>		// std::chrono::milliseconds(...)
+#include <iomanip>		// std::setw(3) << std::setfill('0')
 
 
 namespace Helper
@@ -144,7 +145,7 @@ namespace Helper
 
 	static void Pause()
 	{
-		std::cout << "\033[54C" << "C=|======>\n" << std::endl;
+		std::cout << "\r\n\033[54C" << "C\033[31m=\033[0m|======>\n" << std::endl;
 
 		while (true)
 		{
@@ -154,16 +155,22 @@ namespace Helper
 			{
 				break;
 			}
-			if (key == 27)
+			else
 			{
 				std::cout << "\r\033[2K";
-				std::cout << "\033[45C" << "Press enter to continue...";
+				std::cout << "\033[47C" << "Press enter to continue...";
 			}
 		}
 	}
 
-
-
+	static void Type(const std::string& message, int delay)
+	{
+		for (char c : message)
+		{
+			std::cout << c << std::flush;
+			std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+		}
+	}
 
 
 
