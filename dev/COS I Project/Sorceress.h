@@ -13,9 +13,10 @@ class Sorceress : public Hero
 {
 	int mana;
 	int maxMana;
-	bool shield;
 	int potionCount;
-	const int shieldCost = 50;
+	bool shield;
+	int shieldResistance;
+	int shieldCount;
 	std::vector<Ability> spellbook;
 
 	enum spellList

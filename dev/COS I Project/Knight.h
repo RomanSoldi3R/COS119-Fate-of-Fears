@@ -13,14 +13,13 @@
 class Knight : public Hero
 {
 	int stamina;
-	bool blocking;
 	int potionCount;
-	const int blockCost = 24;
+	bool blocking;
 	std::vector<Ability> skills;
 
 	enum skillList
 	{
-		SHIELD
+		BLOCK
 	};
 
 public:
@@ -30,7 +29,7 @@ public:
 	void RecoverStamina(int amount);									// recover stamina method
 
 	void PrintStats() const override;									// overrides
-	void TakeDmg(float physical, float elemental = 0.0f) override;
+	void TakeDmg(float _physical, float _elemental = 0.0f) override;
 	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;
 
