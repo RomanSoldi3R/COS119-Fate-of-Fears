@@ -1,15 +1,26 @@
 #pragma once
 #include "Hero.h"
-#include <cstdlib>
 #include <iostream>
 #include <string>
+#include <vector>
+#include <cstdlib>
+#include <iomanip>
+#include "Helper.h"
+#include "Art.h"
+#include "Ability.h"
 
 
 class Knight : public Hero
 {
 	int stamina;
-	bool blocking;
 	int potionCount;
+	bool blocking;
+	std::vector<Ability> skills;
+
+	enum skillList
+	{
+		BLOCK
+	};
 
 public:
 
@@ -17,9 +28,9 @@ public:
 
 	void RecoverStamina(int amount);									// recover stamina method
 
-	void TakeDmg(int dmg) override;										// overrides
-	void PrintStats() const override;
-	void TakeTurn(Character& target) override;
+	void PrintStats() const override;									// overrides
+	void TakeDmg(float _physical, float _elemental = 0.0f) override;
+	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;
 
 };

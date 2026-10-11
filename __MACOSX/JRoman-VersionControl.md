@@ -23,23 +23,23 @@ List the correct Terminal commands to do the actions listed below. Replace **CMD
 
 **The last bullet provides an example**.
 
-- [ CMD ]: Clear the Screen
-- [ CMD ]: Print the "Working Directory"
-- [ CMD ]: List files and folders
-- [ CMD ]: List files and folders, including invisible files
-- [ CMD ]: List all files and folders, in human readable form
-- [ CMD ]: Change directory
-- [ CMD ]: Change directory, go to root directory
-- [ CMD ]: Change directory and go to user home directory
-- [ CMD ]: Change directory, go up one folder level
-- [ CMD ]: Change directory, go up two folder levels
-- [ CMD ]: Change directory to my desktop!
+- [cls]: Clear the Screen
+- [cd]: Print the "Working Directory"
+- [ dir ]: List files and folders
+- [ dir /a ]: List files and folders, including invisible files
+- [ dir ]: List all files and folders, in human readable form
+- [cd [folder_name]]: Change directory
+- [cd \]: Change directory, go to root directory
+- [cd %userprofile%]: Change directory and go to user home directory
+- [cd ..]: Change directory, go up one folder level
+- [cd ..\..]: Change directory, go up two folder levels
+- [cd %userprofile%\Desktop]: Change directory to my desktop!
 
 **2. Using Terminal...**
 
 **Folder Drop:** Try typing "cd" followed by a space, and then drag a folder into terminal and press return. Test this out and describe your results below.
 
-[ Describe Results Here ]
+[ When I type cd followed by a space and the folder I dragged in, I get the file path to that folder.  ]
 
 ## Topic: Version Control & Git
 
@@ -56,14 +56,14 @@ Version control, also known as revision control, records changes to a file or se
 
 List the correct Git commands to do the actions listed below in Terminal. Replace CMD with the correct command and keep or enhance the brief description.
 
-- [ CMD ]: Clone a repository
-- [ CMD ]: Set-up a global user name
-- [ CMD ]: Set-up a global email address (to match my GitHub account email)
-- [ CMD ]: Shows the current state of your directory and staging area
-- [ CMD ]: Add modified files to the next commit
-- [ CMD ]: Make a commit with a new message
-- [ CMD ]: Show my commit history
-- [ CMD ]: Show Git's help screen
+- [ git clone < repository-url >]: Clone a repository
+- [ git config --global user.name "Your Name" ]: Set-up a global user name
+- [ git config --global user.email "your.email@example.com" ]: Set-up a global email address (to match my GitHub account email)
+- [ git status ]: Shows the current state of your directory and staging area
+- [ git add < file-name > ]: Add modified files to the next commit
+- [ git commit -m "Your commit message" ]: Make a commit with a new message
+- [ git log ]: Show my commit history
+- [ git help ]: Show Git's help screen
 
 **3. Connecting to GitHub using Terminal.**
 HTTPS is the the correct way to connect to GitHub in this course. Describe how you connect to GitHub from Terminal using this protocol. What steps do you take?
@@ -91,10 +91,10 @@ Most repositories contain a .gitignore file.
 
 Replace the example references below with your own links and recommended resources. It is acceptable to provide multiple links for a single topic and to use material provided to you in this class. You are encouraged to link to your own independent research as well.
 
-[ Research Summary: What resource(s) did you find most helpful this past week and why? ]
+[ Research Summary: What resource(s) did you find most helpful this past week and why? I found the geekforgeeks site to provide really well presented diagrams and explanations to all of the concepts and definitions.]
 
 **Terminal Commands**  
-[Site Address](https://www.someaddress.com/full/url/)
+[Site Address](https://www.codecademy.com/article/command-line-commands)
 
 **Three Types of Version Control**  
 [Site Address](https://www.geeksforgeeks.org/git/version-control-systems/)
