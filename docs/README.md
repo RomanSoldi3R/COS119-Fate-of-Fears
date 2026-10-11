@@ -1,6 +1,6 @@
 COS119-L
 Joel Roman
-10/4/2026
+10/11/2026
 
 <br>
 
@@ -27,7 +27,6 @@ Each week I will summarize my milestone activity and progress by writing a stand
 <br>
 
 ### Week 1
-
 ⚙️ Overview - What I worked on this past week
 <br>What I worked on this past week was a bunch of classes, and a little bit of the main menu to have something playable. I started by creating the classes and what each class would do. The character class shares the name, health and attack power with heroes and enemies. Then each hero class has a take damage and take turn specific to them but made those methods virtual so each class has something different.  I also added a destructor for future use which could come in handy for when I want to delete a hero pointer when creating my heroes in the main.  I have also completed my knight class which is inherited from the hero class and has a stamina variable so I could do unique things with that such as blocking and regen. Lastly I made a starting menu with ascii art to make things pop and a menu function header to plan with future menu functions just in case.
 
@@ -41,9 +40,18 @@ Each week I will summarize my milestone activity and progress by writing a stand
 
 What I plan to do next is implement an enemy class, ascii art for the knight and sorcerer, also change up the menu so I have a campaign built in to start an adventure instead of just choose hero then battle but we shall see.
 ### Week 2
+⚙️ Overview - What I worked on this past week
+<br>What I have worked on this week was my Battle Sequence which I used a namespace to do so. I Have completed an Ability Class to hold a vector of hero abilities which I thought of when creating the Sorceress Class to hold her book of spells.
 
-My next stand up will go here...
+🌵 Challenges - What problems did I have & how I'm addressing them
+<br>I ran into a few challenges. A lot of them stem from my project just growing. There's a wall of text and especially now, I have to make sure everything is readable which forced me improve on my coding readability skills throughout the week. Which then lead to creating functions such as "erase previous lines" in my helper that take in an int so I wont have to repeat code and stops the console from printing continuously without removing the previous lines.
 
+🏆 Accomplishments - What is something I "leveled up" on this week
+<br>What I leveled up this week was with vectors. I have coded using vectors before but now I had to understand WHY I needed to code using vectors. I loved working on my project this week for that reason alone. I used vectors for my Sorceress' Spell book as well as Skills for my Knight. Then after creating my Ability Class, I was able to create a vector of abilities which then I initialized them to each respective class so they start with those abilities. This way any spell or skill they find in the future can be added to that vector. I didn't know how to do this before and got me excited to complete my next steps.
+
+🔮 Next Steps - What I plan to prioritize and do next
+
+Next I plan to implement the Castle/dungeon exploration and opening dialog. That makes it so when the character picks a class, they can then explore rooms, fight enemies and find secrets.
 ### Week 3
 
 Stay tuned, this stand up is coming soon...

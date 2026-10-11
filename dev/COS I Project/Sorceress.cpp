@@ -78,7 +78,7 @@ void Sorceress::TakeDmg(float _physical, float _elemental)
 std::string Sorceress::TakeTurn(Character& target)
 {
 	std::cout << "\t1. Attack" << std::endl;								// print menu
-	std::cout << "\t2. [Spellbook]" << std::endl;
+	std::cout << "\t2. [Spell Book]" << std::endl;
 	std::cout << "\t3. Mana Potion" << std::endl;
 	
 	bool running = true;													// variables
@@ -146,7 +146,7 @@ std::string Sorceress::TakeTurn(Character& target)
 			break;
 		}
 
-		if (key == '2')	//======================== [Spellbook] ========================
+		if (key == '2')	//======================== [Spell Book] ========================
 		{
 			Helper::ErasePreviousLines(3);
 
@@ -169,7 +169,7 @@ std::string Sorceress::TakeTurn(Character& target)
 				{
 					Helper::ErasePreviousLines(counter - 1);
 					std::cout << "\t1. Attack" << std::endl;				// print menu
-					std::cout << "\t2. [Spellbook]" << std::endl;
+					std::cout << "\t2. [Spell Book]" << std::endl;
 					std::cout << "\t3. Mana Potion" << std::endl;
 					break;
 				}
