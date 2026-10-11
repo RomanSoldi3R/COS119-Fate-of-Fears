@@ -1,10 +1,11 @@
 #pragma once
 #include <iostream>		// standard I/O stream library
+#include <string>		// std::string
 #include <vector>		// std::vector
 #include <cstdlib>		// srand
 #include <ctime>		// time
-#include <conio.h>		// _getch()
 #include <random>		// std::random_device
+#include <conio.h>		// _getch()
 #include <thread>		// std::this_thread::sleep_for
 #include <chrono>		// std::chrono::milliseconds(...)
 #include <iomanip>		// std::setw(3) << std::setfill('0')
@@ -172,7 +173,13 @@ namespace Helper
 		}
 	}
 
-
+	static void ErasePreviousLines(int amount)
+	{
+		for (int c = 0; c < amount; c++)
+		{
+			std::cout << "\r\033[1A\033[2K";
+		}
+	}
 
 
 

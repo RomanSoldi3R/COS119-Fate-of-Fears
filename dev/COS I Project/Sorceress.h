@@ -6,14 +6,24 @@
 #include <iomanip>
 #include "Helper.h"
 #include "Art.h"
+#include "Ability.h"
 
 
 class Sorceress : public Hero
 {
-	int mana = 100;
+	int mana;
+	int maxMana;
 	bool shield;
 	int potionCount;
-	int elementalPower;
+	const int shieldCost = 50;
+	std::vector<Ability> spellbook;
+
+	enum spellList
+	{
+		FIREBALL,
+		SHIELD,
+		HEAL
+	};
 
 public:
 

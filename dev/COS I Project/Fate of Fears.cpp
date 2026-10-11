@@ -53,7 +53,7 @@ int main()
 				}
 				if (key == '2')													// if key press is 2 - create sorcerer
 				{
-					hero = std::make_unique<Sorceress>("Sorceress", 100, 15);
+					hero = std::make_unique<Sorceress>("Sorceress", 100, 5);
 					heroMenu = false;
 				}
 				if (key == esc)													// if key press is esc - hero menu is set to false which goes back to the title menu
@@ -66,6 +66,7 @@ int main()
 			if (hero != nullptr)
 			{
 				// (Castle entrance and paths start here)
+
 				bool castle = true;
 
 				while (castle)

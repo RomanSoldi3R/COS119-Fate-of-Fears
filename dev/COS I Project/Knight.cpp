@@ -5,7 +5,9 @@ Knight::Knight(const std::string& _name, int _health, int _attackPower) :
 	Hero(_name, _health, _attackPower),
 	stamina(100),															// adds stamina to the knight class
 	blocking(false),														// adds blocking set to false to the knight doesn't start the fight blocking
-	potionCount(5)															// adds 5 potions to the knight
+	potionCount(5),															// adds 5 potions to the knight
+	skills{ 
+		Ability("Raise Shield", blockCost) }
 {}
 
 void Knight::RecoverStamina(int amount)
@@ -31,9 +33,9 @@ void Knight::PrintStats() const
 {
 	Art::KnightIcon();
 	std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[33m||\033[0m" << "\r\033[27C" << GetName() << "\r\033[49C" << "\033[33m||\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[33m||\033[0m Health: " << "\r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C" << "\033[33m||\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[33m||\033[0m Stamina: " << "\r\033[45C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "\033[0m\r\033[49C" << "\033[33m||\033[0m" << std::endl;
+	std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
+	std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+	std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[45C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
 	std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 }
 
@@ -42,24 +44,16 @@ void Knight::TakeDmg(float physical, float elemental)
 	if (blocking)															// if blocking
 	{
 		Character::TakeDmg(physical / 2.5);									// damage taken is reduced by 60%
-		if (stamina <= 25)													// if current stamina is less than or equal to 25
-		{
-			stamina = 0;													// set stamina to 0
-			blocking = false;												// breaks the block
-		}
-		else
-		{
-			stamina = stamina - 25;											// else lose 25 stamina
-		}
 		Character::TakeDmg(elemental / 1.25);								// damage taken is reduced by 20%
-		if (stamina <= 25)													// if current stamina is less than or equal to 25
+
+		if (stamina <= blockCost)											// if current stamina is less than or equal to 24
 		{
 			stamina = 0;													// set stamina to 0
 			blocking = false;												// breaks the block
 		}
 		else
 		{
-			stamina = stamina - 25;											// else lose 25 stamina
+			stamina = stamina - blockCost;									// else lose 24 stamina
 		}
 	}
 	else
@@ -73,11 +67,13 @@ std::string Knight::TakeTurn(Character& target)
 {
 	blocking = false;														// each turn set blocking to false
 
-	std::cout << "\t1. Knight Slash" << std::endl;							// print menu
-	std::cout << "\t2. Shield Up" << std::endl;
-	std::cout << "\t3. Health Potion (" << potionCount << " left)" << std::endl;
+	std::cout << "\t1. Attack" << std::endl;								// print menu
+	std::cout << "\t2. Skills" << std::endl;
+	std::cout << "\t3. Health Potion" << std::endl;
 
-	int damage = rand() % 11 + GetAttackPower();							// variables
+	bool running = true;													// variables
+	bool inMenu = true;
+	int damage = rand() % 11 + GetAttackPower();
 	int hitChance = rand() % 20;											// 5% chance
 	int critChance = rand() % 10;											// 10% chance
 	int critDamage = damage * 2;
@@ -86,32 +82,32 @@ std::string Knight::TakeTurn(Character& target)
 	int total = 0;
 	std::string result;
 
-	while (true)															// start of the loop
+	while (running)															// start of the loop
 	{
 		int key = _getch();
 		std::cout << "\r\033[2K";
 
 		if (key == '1')							// Attack
 		{
-			if (hitChance != 1)												// 5% chance to miss
+			Helper::ErasePreviousLines(3);
+			if (hitChance != 1)												// chance to miss
 			{
-				if (critChance == 1)										// 10% chance to crit
+				if (critChance == 1)										// chance to crit
 				{
 					before = target.GetHealth();
 					target.TakeDmg(critDamage);								// deal twice the normal damage
 					after = target.GetHealth();
 					total = before - after;
 					
-					if (total >= before)									// if overkill
+					if (total == critDamage || total >= before)
 					{
 						result = "\t::Critical Hit!::"
-							"\r\033[2K\t::You UNLEASH a massive blow for \033[33m" + std::to_string(critDamage) + "\033[0m damage!::"
-							"\r\033[2K\t::OVERKILL!::";
+							"\r\033[2K\t::You UNLEASH a massive blow for \033[33m" + std::to_string(critDamage) + "\033[0m damage!::";
 					}
 					else
 					{
-						result = "\t::Critical Hit!::"
-							"\r\033[2K\t::You UNLEASH a massive blow for \033[33m" + std::to_string(total) + "\033[0m damage!::";
+						result = "\t::You UNLEASH a massive blow::"
+							"\r\033[2K\t::But you only deal " + std::to_string(total) + " damage::";
 					}
 				}
 				else
@@ -121,14 +117,14 @@ std::string Knight::TakeTurn(Character& target)
 					after = target.GetHealth();
 					total = before - after;
 
-					if (total >= before)									// if kill
+					if (total == damage || total >= before)
 					{
-						result = "\t::You strike for " + std::to_string(damage) + " damage::"
-							"\r\033[2K\t::You killed the " + target.GetName() + "!::";
+						result = "\t::You strike for " + std::to_string(damage) + " damage::";
 					}
 					else
 					{
-						result = "\t::You strike for " + std::to_string(total) + " damage::";
+						result = "\t::You strike::"
+							"\r\033[2K\t::But you only deal " + std::to_string(total) + " damage::";
 					}
 				}
 			}
@@ -139,35 +135,71 @@ std::string Knight::TakeTurn(Character& target)
 			break;
 		}
 
-		if (key == '2')							// Block
+		if (key == '2')							// skills
 		{
+			Helper::ErasePreviousLines(3);
 
-			if (stamina >= 25)												// if knight's stamina is greater or equal to 25
+			int counter = 1;
+
+			for (const Ability& ability : skills)
 			{
-				blocking = true;											// the knight blocks
-				result = "\t::" + GetName() + " braces for impact::";
-				break;
+				std::cout << "\t" << counter++ << ". " << ability.GetAbilityName() << std::endl;
 			}
-			else
+
+			inMenu = true;
+
+			while (inMenu)
 			{
-				std::cout << "\r\033[2K";
-				std::cout << "\t::\033[31mNot enough stamina!\033[0m::";	// else choose from the menu again 
-				continue;
+				int key = _getch();
+				int index = key - '0' - 1;									// turns the key press into the index position: key '1'(ascii value 49) - '0'(ascii value 48) - 1 = 0(index position)
+
+				if (key == 27 || key == 8)									// if key press is esc or backspace - exit skills menu
+				{
+					Helper::ErasePreviousLines(counter - 1);
+					std::cout << "\t1. Attack" << std::endl;				// print menu
+					std::cout << "\t2. Skills" << std::endl;
+					std::cout << "\t3. Health Potion" << std::endl;
+					break;
+				}
+
+				switch (index)
+				{
+				case SHIELD:
+
+					if (stamina >= blockCost)								// if stamina is greater than or equal to 24
+					{
+						blocking = true;									// the knight blocks
+						Helper::ErasePreviousLines(counter - 1);
+						result = "\t::You brace for impact::";
+						running = false;
+						inMenu = false;
+					}
+					else													// else choose from the menu again 
+					{
+						std::cout << "\r\033[2K";
+						result = "\t::\033[31mNot enough stamina!\033[0m::";
+						Helper::Type(result, 45);
+						continue;
+					}
+
+				}
+
 			}
+
 		}
 
 		if (key == '3')							// Use potion
 		{
 			if (potionCount <= 0)											// if you have no potions left
 			{
-				std::cout << "\r\033[2K";
-				std::cout << "\t::\033[31mYou have 0 potions left!\033[0m::";
+				result = "\t::\033[31m0 potions left!\033[0m::";
+				Helper::Type(result, 45);
 				continue;
 			}
 			else if (GetHealth() >= GetMaxHealth())
 			{
-				std::cout << "\r\033[2K";
-				std::cout << "\t::\033[31mYour HP is full\033[0m::";
+				result = "\t::\033[31mHealth is full\033[0m::";
+				Helper::Type(result, 45);
 				continue;
 			}
 			else
@@ -178,17 +210,17 @@ std::string Knight::TakeTurn(Character& target)
 				after = GetHealth();
 				total = after - before;
 
-				std::cout << "\t::\033[32m+" << total << " Health\033[0m (" << potionCount << " left)::";
+				result = "\t::\033[32m+" + std::to_string(total) + " Health\033[0m (" + std::to_string(potionCount) + " left)::";
+				Helper::Type(result, 45);
+
+				std::cout << "\r\033[06A\033[41C\033[32m" << GetHealth() << "\033[0m\033[06B";
 				continue;
 			}
-
+			
 		}
-	
+		
 	}
-	std::cout << "\r\033[1A\033[2K";
-	std::cout << "\r\033[1A\033[2K";
-	std::cout << "\r\033[1A\033[2K";
-
+	
 	Helper::Type(result, 45);
 	return result;
 }
@@ -197,4 +229,5 @@ void Knight::TurnOver()
 {
 	RecoverStamina(10);
 }
+
 

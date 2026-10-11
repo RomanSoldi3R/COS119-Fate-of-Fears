@@ -34,16 +34,15 @@ std::string Goblin::TakeTurn(Character & target)
 			after = target.GetHealth();
 			total = before - after;
 
-			if (total >= before)									// if overkill
+			if (total == critDamage || total >= before)				// if overkill
 			{
 				result = "\r\033[67C::Critical Hit!::"
-					"\r\033[2K\033[67C::" + GetName() + " CRACKS you for \033[33m" + std::to_string(critDamage) + "\033[0m damage!::"
-					"\r\033[2K\033[67C::OVERKILL!::";
+					"\r\033[2K\033[67C::" + GetName() + " CRACKS you for \033[33m" + std::to_string(critDamage) + "\033[0m damage!::";
 			}
 			else
 			{
-				result = "\r\033[67C::Critical Hit!::"
-					"\r\033[2K\033[67C::" + GetName() + " CRACKS you for \033[33m" + std::to_string(total) + "\033[0m damage!::";
+				result = "\r\033[67C::" + GetName() + " swings his club with anger!::"
+					"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " damage::";
 			}
 		}
 		else
@@ -53,14 +52,14 @@ std::string Goblin::TakeTurn(Character & target)
 			after = target.GetHealth();
 			total = before - after;
 
-			if (total >= before)									// if kill
+			if (total == damage || total >= before)					// if kill
 			{
-				result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(damage) + " damage::"
-				"\r\033[2K\t::" + GetName() + " killed you!::";
+				result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(damage) + " damage::";
 			}
 			else
 			{
-				result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(total) + " damage::";
+				result = "\r\033[67C::" + GetName() + " swings wildly::"
+					"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " damage::";
 			}
 		}
 	}

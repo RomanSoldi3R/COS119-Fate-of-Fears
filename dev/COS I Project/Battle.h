@@ -29,6 +29,14 @@ namespace Battle
 			if (!_enemy.IsAlive())
 			{
 				winner = true;
+				
+				system("cls");
+				_hero.PrintStats();
+				_enemy.PrintStats();
+
+				std::cout << "\n\r\033[2K\033[34C::\033[32m" + _enemy.GetName() + " Has Been Defeated, Congradulations!\033[0m::" << std::endl;
+				
+				Helper::Pause();
 				break;
 			}
 
@@ -48,6 +56,14 @@ namespace Battle
 			if (!_hero.IsAlive())
 			{
 				winner = false;
+
+				system("cls");
+				_hero.PrintStats();
+				_enemy.PrintStats();
+
+				std::cout << "\n\r\033[2K\033[50C::\033[31m...You Died...\033[0m::" << std::endl;
+
+				Helper::Pause();
 				break;
 			}
 

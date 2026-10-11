@@ -2,10 +2,12 @@
 #include "Hero.h"
 #include <iostream>
 #include <string>
+#include <vector>
 #include <cstdlib>
 #include <iomanip>
 #include "Helper.h"
 #include "Art.h"
+#include "Ability.h"
 
 
 class Knight : public Hero
@@ -13,6 +15,13 @@ class Knight : public Hero
 	int stamina;
 	bool blocking;
 	int potionCount;
+	const int blockCost = 24;
+	std::vector<Ability> skills;
+
+	enum skillList
+	{
+		SHIELD
+	};
 
 public:
 

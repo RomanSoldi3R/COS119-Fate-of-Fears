@@ -146,7 +146,7 @@
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Sorceress.cpp" />
-    <ClCompile Include="Spell.cpp" />
+    <ClCompile Include="Ability.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />
@@ -158,7 +158,7 @@
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Sorceress.h" />
-    <ClInclude Include="Spell.h" />
+    <ClInclude Include="Ability.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
