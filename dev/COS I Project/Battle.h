@@ -66,7 +66,6 @@ namespace Battle
 				Helper::Pause();
 				break;
 			}
-
 			_hero.TurnOver();
 		}
 		return winner;

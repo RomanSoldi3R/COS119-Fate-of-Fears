@@ -15,7 +15,6 @@ class Sorceress : public Hero
 	int maxMana;
 	int potionCount;
 	bool shield;
-	int shieldResistance;
 	int shieldCount;
 	std::vector<Ability> spellbook;
 
@@ -33,7 +32,7 @@ public:
 	void RecoverMana(int amount);											// recover mana method
 
 	void PrintStats() const override;										// overrides
-	void TakeDmg(float physical, float elemental = 0.0f) override;
+	std::string TakeDmg(float physical, float elemental = 0.0f) override;
 	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;
 

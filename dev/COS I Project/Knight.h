@@ -13,6 +13,8 @@
 class Knight : public Hero
 {
 	int stamina;
+	int maxStamina;
+	int staminaCount;
 	int potionCount;
 	bool blocking;
 	std::vector<Ability> skills;
@@ -29,9 +31,9 @@ public:
 	void RecoverStamina(int amount);									// recover stamina method
 
 	void PrintStats() const override;									// overrides
-	void TakeDmg(float _physical, float _elemental = 0.0f) override;
+	std::string TakeDmg(float _physical, float _elemental = 0.0f) override;
 	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;
-
+	
 };
 
