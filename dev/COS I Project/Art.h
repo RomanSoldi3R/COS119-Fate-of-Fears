@@ -5,7 +5,7 @@
 namespace Art
 {
 
-	static void TitleArt() 
+	inline void TitleArt() 
 	{
 		std::cout << "\033[31m" << R"(
 		  ==================================================================================
@@ -47,7 +47,7 @@ namespace Art
 		std::cout << "\033[03A\033[39C\033[37m" << "\\/" << "\033[0m\033[03B\r";		// blade
 	}
 
-	static void KnightArt()
+	inline void KnightArt()
 	{
 		std::cout << "\033[33m" << R"(
     =><=><=><=><=><=><=><=><=><=><=><=><=><=
@@ -105,7 +105,7 @@ namespace Art
 		std::cout << "\033[21A\033[20C\033[34m" << "+" << "\033[0m\033[21B\r";					std::cout << "\033[21A\033[26C\033[34m" << "+" << "\033[0m\033[21B\r";
 	}
 
-	static void KnightIcon()
+	inline void KnightIcon()
 	{
 		std::cout << "\033[33m" << R"(
 		 =><=><=><=><=><=><=><=><=

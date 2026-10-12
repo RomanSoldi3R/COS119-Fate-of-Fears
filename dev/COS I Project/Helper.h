@@ -5,16 +5,17 @@
 #include <cstdlib>		// srand
 #include <ctime>		// time
 #include <random>		// std::random_device
-#include <conio.h>		// _getch()
+#include <conio.h>		// _getch() / _kbhit()
 #include <thread>		// std::this_thread::sleep_for
 #include <chrono>		// std::chrono::milliseconds(...)
 #include <iomanip>		// std::setw(3) << std::setfill('0')
+#include <Windows.h>	// FlushConsoleInputBuffer(
 
 
 namespace Helper
 {
 
-	static bool IsInteger(char* input)
+	inline bool IsInteger(char* input)
 	{
 		if (input == nullptr || *input == '\0')
 		{
@@ -34,7 +35,7 @@ namespace Helper
 		return true;
 	}
 
-	static void PrintIntegerBinary(int* num)
+	inline void PrintIntegerBinary(int* num)
 	{
 		int result = *num;
 
@@ -51,7 +52,7 @@ namespace Helper
 		}
 	}
 
-	static void NumberSort(int* array, int size)
+	inline void NumberSort(int* array, int size)
 	{
 		for (int c = 0; c < size; c++)
 		{
@@ -67,7 +68,7 @@ namespace Helper
 		}
 	}
 
-	static int RandomNumberGenerator(int min, int max)
+	inline int RandomNumberGenerator(int min, int max)
 	{
 		if (min > max)
 		{
@@ -83,7 +84,7 @@ namespace Helper
 		}
 	}
 
-	static int VectorSum(std::vector<int>* vec)
+	inline int VectorSum(std::vector<int>* vec)
 	{
 		if (vec == nullptr)
 		{
@@ -98,17 +99,27 @@ namespace Helper
 		return sum;
 	}
 
-	static int GetValidIndex(int min, int max)
+	inline int GetValidIndex(int min, int max)
 	{
-		int input;
+		std::string input;
+		int result;
 
 		while (true)
 		{
-			std::cin >> input;
-			
-			if (input >= min && input <= max)
+			getline(std::cin, input);
+
+			try
 			{
-				return input;
+				result = std::stoi(input);
+			}
+			catch (const std::exception&)
+			{
+
+			}
+			
+			if (result >= min && result <= max)
+			{
+				return result;
 			}
 			else
 			{
@@ -117,7 +128,7 @@ namespace Helper
 		}
 	}
 
-	static bool CoinFlip()
+	inline bool CoinFlip()
 	{
 		std::random_device rd;									// Obtain a seed from the system
 		std::mt19937 gen(rd());									// Seed the generator
@@ -127,7 +138,7 @@ namespace Helper
 		return random_number;
 	}
 
-	static bool EnterEsc()
+	inline bool EnterEsc()
 	{
 		while (true)
 		{
@@ -144,7 +155,7 @@ namespace Helper
 		}
 	}
 
-	static void Pause()
+	inline void Pause()
 	{
 		std::cout << "\r\n\033[54C" << "C\033[31m=\033[0m|======>\n" << std::endl;
 
@@ -164,16 +175,32 @@ namespace Helper
 		}
 	}
 
-	static void Type(const std::string& message, int delay)
+	inline void Type(const std::string& message, int delay)
 	{
-		for (char c : message)
+		bool skip = false;
+
+		for (char letter : message)
 		{
-			std::cout << c << std::flush;
+			if (_kbhit())						// if Keyboard hit was pressed --> (returns an integer (non-zero if a key is pressed, 0 otherwise)
+			{
+				if (_getch() == 13)				// if Enter was pressed --> (returns the ASCII value of the key that was pressed)
+				{
+					skip = true;
+				}
+			}
+			if (skip)
+			{
+				std::cout << letter;
+				continue;
+			}
+
+			std::cout << letter << std::flush;
 			std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 		}
+		FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));			// removes text that is input while waiting for type
 	}
 
-	static void ErasePreviousLines(int amount)
+	inline void ErasePreviousLines(int amount)
 	{
 		for (int c = 0; c < amount; c++)
 		{
@@ -181,7 +208,10 @@ namespace Helper
 		}
 	}
 
-
+	inline void clearScreen()
+	{
+		std::cout << "\033[2J\033[1;1H";		// \033[2J clears the screen | \033[1;1H moves cursor to row 1, col 1
+	}
 
 
 

@@ -49,14 +49,11 @@ std::string Knight::TakeDmg(float _physical, float _elemental)
 	if (blocking)															// if blocking
 	{
 		float physical = _physical;
-		float elemental = _elemental;
 		
 		Character::TakeDmg(physical = physical / 2.5);						// damage taken is reduced by 60%
-		Character::TakeDmg(0, elemental = elemental / 1.25);				// damage taken is reduced by 20%
+		Character::TakeDmg(0, _elemental / 1.25);							// damage taken is reduced by 20%
 		
-		physical = (rand() % 5 + 10) + physical;
-		
-		if (stamina <= physical + elemental)								// if current stamina is less than or equal to block cost
+		if (stamina <= physical + (_elemental / 5))							// if current stamina is less than or equal to 40% physical + 20% elemental damage taken
 		{
 			stamina = 0;													// set stamina to 0
 			blocking = false;												// breaks the block
@@ -64,7 +61,7 @@ std::string Knight::TakeDmg(float _physical, float _elemental)
 		}
 		else
 		{
-			stamina = stamina - (physical);									// else lose block cost
+			stamina = stamina - (physical + (_elemental / 5));				// else lose stamina equal to 40% physical + 20% elemental damage taken
 		}
 	}
 	else
@@ -260,16 +257,19 @@ void Knight::TurnOver()
 
 	if (staminaCount >= 2)
 	{
-		int before = stamina;
-		RecoverStamina(rand() % 5 + 5);
-		int after = stamina;
-		int total = after - before;
+		if (stamina != maxStamina)
+		{
+			int before = stamina;
+			RecoverStamina(rand() % 6 + 5);
+			int after = stamina;
+			int total = after - before;
 
-		staminaCount = 0;
-		std::cout << "\r\033[2K";
-		Helper::ErasePreviousLines(4);
-		Helper::Type("\t::\033[33mYou recovered " + std::to_string(total) + " stamina\033[0m::", 45);
-		Helper::Pause();
+			staminaCount = 0;
+			std::cout << "\r\033[2K";
+			Helper::ErasePreviousLines(4);
+			Helper::Type("\t::\033[33mYou recovered " + std::to_string(total) + " stamina\033[0m::", 45);
+			Helper::Pause();
+		}
 	}
 }
 

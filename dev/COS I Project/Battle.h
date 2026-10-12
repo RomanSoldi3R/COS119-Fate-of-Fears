@@ -6,20 +6,20 @@
 namespace Battle
 {
 
-	static bool Sequence(Hero& _hero, Enemy& _enemy)
+	inline bool Sequence(Hero& _hero, Enemy& _enemy)
 	{
 		bool winner = true;
 		std::string action;
 
 		while (true)
 		{
-			system("cls");
+			Helper::clearScreen();
 			_hero.PrintStats();
 			_enemy.PrintStats();
 
 			action = _hero.TakeTurn(_enemy);
 			
-			system("cls");
+			Helper::clearScreen();
 			_hero.PrintStats();
 			_enemy.PrintStats();
 			
@@ -30,7 +30,7 @@ namespace Battle
 			{
 				winner = true;
 				
-				system("cls");
+				Helper::clearScreen();
 				_hero.PrintStats();
 				_enemy.PrintStats();
 
@@ -40,13 +40,13 @@ namespace Battle
 				break;
 			}
 
-			system("cls");
+			Helper::clearScreen();
 			_hero.PrintStats();
 			_enemy.PrintStats();
 
 			action = _enemy.TakeTurn(_hero);
 			
-			system("cls");
+			Helper::clearScreen();
 			_hero.PrintStats();
 			_enemy.PrintStats();
 			
@@ -57,7 +57,7 @@ namespace Battle
 			{
 				winner = false;
 
-				system("cls");
+				Helper::clearScreen();
 				_hero.PrintStats();
 				_enemy.PrintStats();
 

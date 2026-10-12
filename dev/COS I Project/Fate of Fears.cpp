@@ -73,7 +73,7 @@ int main()
 				{
 					bool result = true;
 					
-					Goblin goblin("Weak Goblin", 50, 15);
+					Goblin goblin("Goblin", 150, 15);
 					result = Battle::Sequence(*hero, goblin);
 
 					if (result == false)

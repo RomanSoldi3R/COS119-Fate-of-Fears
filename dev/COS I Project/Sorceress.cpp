@@ -48,16 +48,13 @@ std::string Sorceress::TakeDmg(float _physical, float _elemental)
 	if (shield && shieldCount > 0)											// if shielded
 	{	
 		float elemental = _elemental;
-		float physical = _physical;
 
-		Character::TakeDmg(physical = physical / 1.11);						// physical damage taken is reduced by 10%
+		Character::TakeDmg(_physical / 1.11);								// physical damage taken is reduced by 10%
 		Character::TakeDmg(0, elemental = elemental / 5);					// elemental damage taken is reduced by 80%
-		
-		elemental = (rand() % 5 + 10) + elemental;
 
 		if (shieldResistance != 1)
 		{
-			if (mana <= elemental + physical)								// if current mana is less than or equal to both dmg types
+			if (mana <= _elemental / 2.5)									// if current mana is less than or equal to both dmg types
 			{
 				mana = 0;													// set mana to 0
 				shield = false;												// breaks the shield
@@ -65,13 +62,13 @@ std::string Sorceress::TakeDmg(float _physical, float _elemental)
 			}
 			else
 			{
-				mana = mana - (elemental);									// else lose mana
+				mana = mana - (_elemental / 2.5);							// else lose mana based off %40 of the elemental damage taken  
 			}
 		}
 		else
 		{
 			shield = false;
-			result = "\033[31m breaks through your mana shield!\033[0m::";
+			result = "\033[31m disrupts your mana shield!\033[0m::";
 		}
 	}
 	else
@@ -238,7 +235,7 @@ std::string Sorceress::TakeTurn(Character& target)
 							else
 							{
 								before = target.GetHealth();
-								target.TakeDmg(0, damage);					// else do normal damage
+								target.TakeDmg(0, damage);								// else do normal damage
 								after = target.GetHealth();
 								total = before - after;
 
@@ -371,16 +368,18 @@ std::string Sorceress::TakeTurn(Character& target)
 
 void Sorceress::TurnOver()
 {
-	int before = mana;
-	RecoverMana(rand() % 5 + 5);
-	int after = mana;
-	int total = after - before;
+	if (mana != maxMana)
+	{
+		int before = mana;
+		RecoverMana(rand() % 6 + 5);
+		int after = mana;
+		int total = after - before;
 
-	std::cout << "\r\033[2K";
-	Helper::ErasePreviousLines(4);
-	Helper::Type("\t::\033[35mYou recovered " + std::to_string(total) + " mana\033[0m::", 45);
-	Helper::Pause();
-
+		std::cout << "\r\033[2K";
+		Helper::ErasePreviousLines(4);
+		Helper::Type("\t::\033[35mYou recovered " + std::to_string(total) + " mana\033[0m::", 45);
+		Helper::Pause();
+	}
 	if (shield)
 	{
 		shieldCount++;
@@ -389,7 +388,8 @@ void Sorceress::TurnOver()
 	{
 		shield = false;
 		shieldCount = 0;
-		Helper::ErasePreviousLines(4);
+		std::cout << "\r\033[2K";
+		Helper::ErasePreviousLines(3);
 		Helper::Type("\t::\033[35mMana shield wore off\033[0m::", 45);
 		Helper::Pause();
 	}
