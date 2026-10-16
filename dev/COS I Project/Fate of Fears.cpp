@@ -10,6 +10,7 @@
 #include "Sorceress.h"
 #include "Goblin.h"
 #include "Battle.h"
+#include "Castle.h"
 
 
 int main()
@@ -22,7 +23,7 @@ int main()
 
 	while (titleMenu)															// start of the title menu loop
 	{
-		system("cls");															// clear screen
+		Helper::clearScreen();													// clear screen
 		Art::TitleArt();
 		
 		std::cout << "\033[49C" << "Enter: Start Game" << std::endl;
@@ -37,7 +38,7 @@ int main()
 
 			while (heroMenu)													// start of the hero menu loop
 			{
-				system("cls");													// clear screen
+				Helper::clearScreen();											// clear screen
 				Art::KnightArt();
 				std::cout << "\033[50C" << "Select Class" << std::endl;
 				std::cout << "\033[18C" << "1: Knight" << "\033[60C" << "2: Sorceress" << std::endl;
@@ -66,23 +67,45 @@ int main()
 			if (hero != nullptr)
 			{
 				// (Castle entrance and paths start here)
+				Castle castle;
 
-				bool castle = true;
+				bool inCastle = true;
+				bool optionsMenu;
+				bool result = true;
 
-				while (castle)
+				while (inCastle)
 				{
-					bool result = true;
+					Helper::clearScreen();
+
+					castle.InView();
+
+					int key = _getch();
+
+					if (key == esc)
+					{
+						while (optionsMenu)
+						{
+
+							int key = _getch();
+
+							if (key == esc)
+							{
+								optionsMenu = false;
+							}
+						}	
+						
+					}
+
+					int index = key - '0' - 1;			// turns the key press into the index position: key '1'(ascii value 49) - '0'(ascii value 48) - 1(value) = 0(index position)
+					std::cout << "\r\033[2K";
+
+					castle.Move(index);
+
 					
-					Goblin goblin("Goblin", 150, 15);
-					result = Battle::Sequence(*hero, goblin);
 
 					if (result == false)
 					{
-						castle = false;
-						break;
-					}
-					else
-					{
+						inCastle = false;
 						break;
 					}
 
@@ -115,3 +138,5 @@ int main()
 // once the final boss is defeated, you win
 // if you die, return to the main menu
 
+//Goblin goblin("Goblin", 125, 15);
+//result = Battle::Sequence(*hero, goblin);

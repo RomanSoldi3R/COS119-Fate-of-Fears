@@ -19,7 +19,7 @@ class Knight : public Hero
 	bool blocking;
 	std::vector<Ability> skills;
 
-	enum skillList
+	enum SkillList
 	{
 		BLOCK
 	};

@@ -8,6 +8,7 @@ Character::Character(const std::string& _name, int _health, int _attackPower) :
 	attackPower(_attackPower)
 {}
 
+
 std::string Character::TakeDmg(float _physical, float _elemental)
 {
 	if (_physical <= 0)				// if physical damage taken is less than or equal to 0
@@ -29,6 +30,7 @@ std::string Character::TakeDmg(float _physical, float _elemental)
 	return "";
 }
 
+
 void Character::Heal(int heal)
 {
 	if (heal <= 0)					// if healing amount is less than or equal to 0
@@ -42,6 +44,7 @@ void Character::Heal(int heal)
 		health = maxHealth;			// set health to the max health
 	}
 }
+
 
 bool Character::IsAlive() const
 {
@@ -57,6 +60,7 @@ bool Character::IsAlive() const
 	}
 	return life;					// return false/true which as a bool is 0/1
 }
+
 
 std::string Character::GetName() const { return name; }
 int Character::GetHealth() const { return health; }

@@ -139,17 +139,21 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Castle.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Fate of Fears.cpp" />
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Knight.cpp" />
+    <ClCompile Include="Pathway.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Sorceress.cpp" />
     <ClCompile Include="Ability.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />
+    <ClInclude Include="Castle.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Art.h" />
@@ -157,6 +161,9 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Knight.h" />
+    <ClInclude Include="Pathway.h" />
+    <ClInclude Include="Pathway Enums.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="Sorceress.h" />
     <ClInclude Include="Ability.h" />
   </ItemGroup>

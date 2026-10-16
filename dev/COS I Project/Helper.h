@@ -9,7 +9,8 @@
 #include <thread>		// std::this_thread::sleep_for
 #include <chrono>		// std::chrono::milliseconds(...)
 #include <iomanip>		// std::setw(3) << std::setfill('0')
-#include <Windows.h>	// FlushConsoleInputBuffer(
+#include <Windows.h>	// FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE))
+#include <algorithm>	// std::shuffle
 
 
 namespace Helper
@@ -68,22 +69,6 @@ namespace Helper
 		}
 	}
 
-	inline int RandomNumberGenerator(int min, int max)
-	{
-		if (min > max)
-		{
-			std::cout << "\nERROR: Invalid Range!";
-			return 0;
-		}
-		else
-		{
-			srand(time(nullptr));
-			int randomNumber = rand() % (max - min + 1) + min;
-			std::cout << "\nRandomNumberGenerator: " << randomNumber;
-			return randomNumber;
-		}
-	}
-
 	inline int VectorSum(std::vector<int>* vec)
 	{
 		if (vec == nullptr)
@@ -125,6 +110,27 @@ namespace Helper
 			{
 				std::cout << "Invalid Input: Please try again" << std::endl;
 			}
+		}
+	}
+
+	inline std::mt19937& Engine()
+	{
+		static std::mt19937 gen(std::random_device{}());
+		return gen;
+	}
+
+	inline int RandomNumberGenerator(int min, int max)
+	{
+		if (min > max)
+		{
+			return 0;
+		}
+		else
+		{
+			std::uniform_int_distribution<> distrib(min, max);		// Define the range
+			int random_number = distrib(Engine());					// Generate the number
+
+			return random_number;
 		}
 	}
 

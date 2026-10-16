@@ -18,7 +18,7 @@ class Sorceress : public Hero
 	int shieldCount;
 	std::vector<Ability> spellbook;
 
-	enum spellList
+	enum SpellList
 	{
 		FIREBALL,
 		SHIELD,

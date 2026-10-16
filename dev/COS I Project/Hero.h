@@ -9,6 +9,12 @@ class Hero : public Character
 
 public:
 
+	enum HeroClass
+	{
+		KNIGHT,
+		SORCERESS
+	};
+
 	Hero(const std::string& _name, int _health, int _attackPower);		// constructor
 
 	virtual void PrintStats() const = 0;								// pure virtual method to print stats

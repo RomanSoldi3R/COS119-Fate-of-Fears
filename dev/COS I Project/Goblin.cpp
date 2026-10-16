@@ -5,6 +5,7 @@ Goblin::Goblin(const std::string& _name, int _health, int _attackPower) :
 	Enemy(_name, _health, _attackPower)
 {}
 
+
 void Goblin::PrintStats() const
 {
 	std::cout << "\r\033[5A\033[67C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
@@ -13,6 +14,7 @@ void Goblin::PrintStats() const
 	std::cout << "\r\033[67C\033[31m||\033[0m" << "\033[0m\r\033[108C" << "\033[31m||\033[0m" << std::endl;
 	std::cout << "\r\033[67C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 }
+
 
 std::string Goblin::TakeTurn(Character & target)
 {
