@@ -179,7 +179,7 @@ std::string Sorceress::TakeTurn(Character& target)
 				int index = key - '0' - 1;									// turns the key press into the index position: key '1'(ascii value 49) - '0'(ascii value 48) - 1 = 0(index position)
 				std::cout << "\r\033[2K";
 
-				if (key == 27 || key == 8)									// if key press is esc or backspace - exit skills menu
+				if (key == 8)												// if key press is backspace - exit skills menu
 				{
 					Helper::ErasePreviousLines(counter - 1);
 					std::cout << "\t1. Attack" << std::endl;				// print menu

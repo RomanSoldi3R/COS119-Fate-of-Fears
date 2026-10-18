@@ -5,46 +5,42 @@
 #include <memory>
 #include "Helper.h"
 #include "Art.h"
+#include "Menus.h"
+#include "Castle.h"
 #include "Character.h"
 #include "Knight.h"
 #include "Sorceress.h"
-#include "Goblin.h"
 #include "Battle.h"
-#include "Castle.h"
+#include "Goblin.h"
 
 
 int main()
 {
 	srand(time(NULL));
 
-	bool titleMenu = true;														// variables
-	bool heroMenu = true;
-	int esc = 27;
+	int esc = 27;																// variables
+	int backspace = 8;
+	int enter = 13;
+	int c = 99;
+	bool titleMenu = true;
 
 	while (titleMenu)															// start of the title menu loop
 	{
-		Helper::clearScreen();													// clear screen
-		Art::TitleArt();
-		
-		std::cout << "\033[49C" << "Enter: Start Game" << std::endl;
-		std::cout << "\033[53C" << "Esc: Exit" << std::endl;
+		Menu::TitleMenu();
 
-		if (Helper::EnterEsc())													// if player presses enter continue to hero menu
+		int key = _getch();
+		if (key == enter)														// if player presses enter continue to hero menu
 		{
-			heroMenu = true;													// resets the heroMenu variable to true in case the player hits esc changing it to false, you can enter the hero menu again
-			std::unique_ptr<Hero> hero;
-
 			// (Intro dialog coded here)
+
+			bool heroMenu = true;												// resets the heroMenu variable to true in case the player hits esc changing it to false, you can enter the hero menu again
+			std::unique_ptr<Hero> hero;
 
 			while (heroMenu)													// start of the hero menu loop
 			{
-				Helper::clearScreen();											// clear screen
-				Art::KnightArt();
-				std::cout << "\033[50C" << "Select Class" << std::endl;
-				std::cout << "\033[18C" << "1: Knight" << "\033[60C" << "2: Sorceress" << std::endl;
+				Menu::HeroMenu();
 
 				int key = _getch();												// accepts one key press
-
 				if (key == '1')													// if key press is 1 - create knight
 				{
 					
@@ -66,13 +62,9 @@ int main()
 
 			if (hero != nullptr)
 			{
-				// (Castle entrance and paths start here)
-				Castle castle;
+				Castle castle;	//================================== CASTLE ==================================
 
 				bool inCastle = true;
-				bool optionsMenu;
-				bool result = true;
-
 				while (inCastle)
 				{
 					Helper::clearScreen();
@@ -80,41 +72,87 @@ int main()
 					castle.InView();
 
 					int key = _getch();
+					if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5')
+					{
+						int index = key - '0' - 1;
+						std::cout << "\r\033[2K";
 
+						castle.Move(index);
+					}
 					if (key == esc)
 					{
+						int optionsMenu = true;
 						while (optionsMenu)
 						{
+							Menu::OptionsMenu();
 
 							int key = _getch();
+							if (key == '1')										// controls menu
+							{
+								int controlsMenu = true;
+								while (controlsMenu)
+								{
+									Menu::ControlsMenu();
 
-							if (key == esc)
+									int key = _getch();
+									if (key == esc || key == '1')				// go back to options menu
+									{
+										controlsMenu = false;
+									}
+								}
+							}
+							if (key == '2')										// beastiary menu
+							{
+								int beastiaryMenu = true;
+								while (beastiaryMenu)
+								{
+									// beastiary menu goes here
+
+									int key = _getch();
+									if (key == esc || key == '2')				// go back to options menu
+									{
+										beastiaryMenu = false;
+									}
+								}
+							}
+							if (key == '3')										// exit game
+							{
+								optionsMenu = false;
+								inCastle = false;
+							}
+							if (key == esc)										// go back to game
 							{
 								optionsMenu = false;
 							}
 						}	
-						
 					}
-
-					int index = key - '0' - 1;			// turns the key press into the index position: key '1'(ascii value 49) - '0'(ascii value 48) - 1(value) = 0(index position)
-					std::cout << "\r\033[2K";
-
-					castle.Move(index);
 
 					
 
-					if (result == false)
-					{
-						inCastle = false;
-						break;
-					}
+					
+
+					
 
 				}
 
 			}
 
 		}
-		else																	// else set title menu to false which exits the game
+		if (key == c)															// controls menu at the main menu
+		{
+			int controlsMenu = true;
+			while (controlsMenu)
+			{
+				Menu::ControlsMenu();
+
+				int key = _getch();
+				if (key == esc || key == c)										// go back to the main menu
+				{
+					controlsMenu = false;
+				}
+			}
+		}
+		if (key == esc)															// else set title menu to false which exits the game
 		{
 			titleMenu = false;
 		}
@@ -140,3 +178,9 @@ int main()
 
 //Goblin goblin("Goblin", 125, 15);
 //result = Battle::Sequence(*hero, goblin);
+//
+//if (result == false)
+//{
+//	inCastle = false;
+//	break;
+//}

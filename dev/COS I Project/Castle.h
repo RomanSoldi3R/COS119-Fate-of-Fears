@@ -14,6 +14,7 @@ class Castle
 	std::vector<RoomLabel> visited;
 	RoomLabel lastRoom;
 	Direction facing;
+	std::vector<Pathway> choices;
 
 public:
 

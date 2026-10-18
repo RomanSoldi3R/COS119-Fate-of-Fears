@@ -216,7 +216,7 @@ namespace Helper
 
 	inline void clearScreen()
 	{
-		std::cout << "\033[2J\033[1;1H";		// \033[2J clears the screen | \033[1;1H moves cursor to row 1, col 1
+		std::cout << "\033[2J\033[3J\033[H";		// \033[2J clears the screen | \033[3J erases the scroll back | \033[H puts the cursor back at row 1, column 1.
 	}
 
 

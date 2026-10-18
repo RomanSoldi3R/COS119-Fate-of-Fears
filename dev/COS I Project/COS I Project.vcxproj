@@ -161,6 +161,7 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Knight.h" />
+    <ClInclude Include="Menus.h" />
     <ClInclude Include="Pathway.h" />
     <ClInclude Include="Pathway Enums.h" />
     <ClInclude Include="Room.h" />

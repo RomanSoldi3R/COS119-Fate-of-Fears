@@ -77,7 +77,7 @@ Castle::Castle() :
 		Pathway(NORTH, MIRRORHALL),
 		Pathway(EAST, ROOM9)
 	}));
-	floorplan.push_back(Room("Grand Staircase", {
+	floorplan.push_back(Room("Entrance Hall 2FL", {
 		Pathway(WEST, ROOM6),
 		Pathway(NORTH, ROOM7),
 		Pathway(DOWN, ENTRANCE)
@@ -182,77 +182,115 @@ bool Castle::HasVisited(RoomLabel _label) const
 
 void Castle::InView()
 {
-	std::cout << floorplan[currentRoom].GetRoomName() << std::endl;
+	choices.clear();						// clears the list of pathways (doors) in the vector
+
+	std::cout << "\t \033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><= \033[1;33m" << floorplan[currentRoom].GetRoomName() << "\033[0m\033[31m =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 
 	int number = 1;
 
-	for (const auto& door : floorplan[currentRoom].GetPaths())
+	std::vector<int> order = {				// an menu ordered based on which way the character is facing
+			(facing + 3) % 4,
+			(facing),
+			(facing + 1) % 4,
+			(facing + 2) % 4,
+			UP,
+			DOWN
+	};
+
+	for (const auto& entry : order)			// for each entry in that ordered menu...
 	{
-		if (door.GetLabel() == lastRoom)
+		for (const auto& door : floorplan[currentRoom].GetPaths())		// and for each door in the current room
 		{
-			std::cout << "\t" << number++ << ". Go back to the " << floorplan[lastRoom].GetRoomName() << std::endl;
+			if (door.GetDirection() == entry && door.GetLabel() != lastRoom)		// if the door matches with the menu in order of direction and is not the last room
+			{
+				std::string direction;
+				if (entry == (facing + 3) % 4)
+				{
+					direction = "Left";
+				}
+				else if (entry == facing)
+				{
+					direction = "Forward";
+				}
+				else if (entry == (facing + 1) % 4)
+				{
+					direction = "Right";
+				}
+				else if (entry == (facing + 2) % 4)
+				{
+					direction = "Behind";
+				}
+				else if (entry == UP)
+				{
+					direction = "Ascend";
+				}
+				else if (entry == DOWN)
+				{
+					direction = "Descend";
+				}
+				if (HasVisited(door.GetLabel()))									// if the room has been visited
+				{																	// print the direction and doors name
+					std::cout << "\t" << number++ << ". " << direction << ": " << floorplan[door.GetLabel()].GetRoomName() << std::endl;	
+				}
+				else																// else just the direction
+				{
+					std::cout << "\t" << number++ << ". " << direction << std::endl;
+				}
+				choices.push_back(door);											// then add it to the list "choices"
+			}
 		}
-		else if (HasVisited(door.GetLabel()))
+	}
+	if (lastRoom != WILDERNESS)														// if the door behind is not empty(wilderness)
+	{	
+		for (const auto& door : floorplan[currentRoom].GetPaths())					// for each door in the current room
 		{
-			std::cout << "\t" << number++ << ". " << floorplan[door.GetLabel()].GetRoomName() << std::endl;
-		}
-		else
-		{
-			if (door.GetDirection() == (facing + 3) % 4)
+			if (door.GetLabel() == lastRoom)										// and if the door label matches the last room
 			{
-				std::cout << "\t" << number++ << ". Left" << std::endl;
-			}
-			else if (door.GetDirection() == facing)
-			{
-				std::cout << "\t" << number++ << ". Forward" << std::endl;
-			}
-			else if (door.GetDirection() == (facing + 1) % 4)
-			{
-				std::cout << "\t" << number++ << ". Right" << std::endl;
-			}
-			else if (door.GetDirection() == (facing + 2) % 4)
-			{
-				std::cout << "\t" << number++ << ". Behind" << std::endl;
-			}
-			else if (door.GetDirection() == UP)
-			{
-				std::cout << "\t" << number++ << ". Ascend" << std::endl;
-			}
-			else if (door.GetDirection() == DOWN)
-			{
-				std::cout << "\t" << number++ << ". Descend" << std::endl;
+				if (door.GetDirection() == UP)										// and if the last room was going up
+				{
+					std::cout << "\t" << number++ << ". Go back up to the " << floorplan[lastRoom].GetRoomName() << std::endl;
+				}
+				else if (door.GetDirection() == DOWN)								// else if the last room was going down
+				{
+					std::cout << "\t" << number++ << ". Go back down to the " << floorplan[lastRoom].GetRoomName() << std::endl;
+				}
+				else																// else any other direction...
+				{
+					std::cout << "\t" << number++ << ". Go back to the " << floorplan[lastRoom].GetRoomName() << std::endl;
+				}
+				choices.push_back(door);											// add it to the list so the last room entered is always on the bottom
 			}
 		}
-	}	
+	}
 }
 
 
 void Castle::Move(int index)
 {
-	if (index >= 0 && index < floorplan[currentRoom].GetPaths().size())
+	if (index >= 0 && index < choices.size())					// if the number entered is greater than or equal to 0 but less than the "choices" list
 	{
-		const Pathway& door = floorplan[currentRoom].GetPaths()[index];
-		RoomLabel destination = door.GetLabel();
+		const Pathway& door = choices[index];					// player chooses the door out of the menu "choices" and that choice gets stored in "door" 
+		RoomLabel destination = door.GetLabel();				// that same door asks GetLabel for the room then stores the answer in "destination"
 
-		lastRoom = currentRoom;
-		currentRoom = destination;
+		lastRoom = currentRoom;									// update the last room to the current room before the player leaves it
+		currentRoom = destination;								// update the current room to the room chosen (destination)
 		
-		if (door.GetDirection() == UP)
+		if (door.GetDirection() == UP)							// if the player goes upstairs
 		{
-			facing = NORTH;
+			facing = NORTH;										// their orientation is set to north
 		}
-		else if (door.GetDirection() == DOWN)
+		else if (door.GetDirection() == DOWN)					// if the player goes downstairs
 		{
-			facing = SOUTH;
+			facing = SOUTH;										// their orientation is set to south
 		}
-		else
+		else													//else face the chosen door's direction
 		{
 			facing = door.GetDirection();
 		}
 
-		if (!HasVisited(currentRoom))
+		if (!HasVisited(currentRoom))							// if the player has not visited the current room
 		{
-			visited.push_back(currentRoom);
+			visited.push_back(currentRoom);						// add that room to the vector
 		}
 	}
 }

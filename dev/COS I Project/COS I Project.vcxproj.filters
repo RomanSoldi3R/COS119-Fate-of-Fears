@@ -92,5 +92,8 @@
     <ClInclude Include="Pathway Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
