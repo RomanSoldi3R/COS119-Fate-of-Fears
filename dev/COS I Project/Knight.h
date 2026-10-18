@@ -8,6 +8,7 @@
 #include "Helper.h"
 #include "Art.h"
 #include "Ability.h"
+#include "Menus.h"
 
 
 class Knight : public Hero

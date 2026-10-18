@@ -7,6 +7,7 @@
 #include "Helper.h"
 #include "Art.h"
 #include "Ability.h"
+#include "Menus.h"
 
 
 class Sorceress : public Hero

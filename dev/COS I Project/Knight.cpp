@@ -103,6 +103,7 @@ std::string Knight::TakeTurn(Character& target)
 	int before = 0;
 	int after = 0;
 	int total = 0;
+	int esc = 27;
 	std::string result;
 
 	while (running)															// start of the loop

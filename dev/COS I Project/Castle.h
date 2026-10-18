@@ -4,6 +4,7 @@
 #include <vector>
 #include "Helper.h"
 #include "Hero.h"
+#include "Art.h"
 
 
 class Castle

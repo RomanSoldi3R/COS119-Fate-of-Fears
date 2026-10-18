@@ -52,5 +52,61 @@ namespace Menu
 		std::cout << "\r\033[35C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 
+	inline bool Options(char key)
+	{
+		int esc = 27;
+
+		if (key == esc)
+		{
+			int optionsMenu = true;
+			while (optionsMenu)
+			{
+				Menu::OptionsMenu();
+
+				int key = _getch();
+				if (key == '1')										// controls menu
+				{
+					int controlsMenu = true;
+					while (controlsMenu)
+					{
+						Menu::ControlsMenu();
+
+						int key = _getch();
+						if (key == esc || key == '1')				// go back to options menu
+						{
+							controlsMenu = false;
+						}
+					}
+				}
+				if (key == '2')										// beastiary menu
+				{
+					int beastiaryMenu = true;
+					while (beastiaryMenu)
+					{
+						// beastiary menu goes here
+
+						int key = _getch();
+						if (key == esc || key == '2')				// go back to options menu
+						{
+							beastiaryMenu = false;
+						}
+					}
+				}
+				if (key == '3')										// exit game
+				{
+					optionsMenu = false;
+					return false;
+				}
+				if (key == esc)										// go back to game
+				{
+					optionsMenu = false;
+				}
+			}
+		}
+		return true;
+	}
+
+
+
 
 }

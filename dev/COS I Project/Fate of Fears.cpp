@@ -29,8 +29,6 @@ int main()
 		int key = _getch();
 		if (key == enter)														// if player presses enter continue to hero menu
 		{
-			// (Intro dialog coded here)
-
 			bool heroMenu = true;												// resets the heroMenu variable to true in case the player hits esc changing it to false, you can enter the hero menu again
 			std::unique_ptr<Hero> hero;
 
@@ -60,13 +58,15 @@ int main()
 
 			if (hero != nullptr)
 			{
-				Art::EntranceHallArt();	//================================== CASTLE ==================================
+				Helper::clearScreen();
+				Art::CastleGateArt();
+
 				Helper::Pause();
 
 				Castle castle;
 				bool result = true;
 				bool inCastle = true;
-				while (inCastle)
+				while (inCastle)		//================================== CASTLE ==================================
 				{
 					Helper::clearScreen();
 
@@ -94,59 +94,11 @@ int main()
 					}
 					if (key == esc)
 					{
-						int optionsMenu = true;
-						while (optionsMenu)
-						{
-							Menu::OptionsMenu();
-
-							int key = _getch();
-							if (key == '1')										// controls menu
-							{
-								int controlsMenu = true;
-								while (controlsMenu)
-								{
-									Menu::ControlsMenu();
-
-									int key = _getch();
-									if (key == esc || key == '1')				// go back to options menu
-									{
-										controlsMenu = false;
-									}
-								}
-							}
-							if (key == '2')										// beastiary menu
-							{
-								int beastiaryMenu = true;
-								while (beastiaryMenu)
-								{
-									// beastiary menu goes here
-
-									int key = _getch();
-									if (key == esc || key == '2')				// go back to options menu
-									{
-										beastiaryMenu = false;
-									}
-								}
-							}
-							if (key == '3')										// exit game
-							{
-								optionsMenu = false;
-								inCastle = false;
-							}
-							if (key == esc)										// go back to game
-							{
-								optionsMenu = false;
-							}
-						}	
+						inCastle = Menu::Options(key);
 					}
 
-					
 
-					
-
-					
-
-				}
+				}		//================================== CASTLE ==================================
 
 			}
 

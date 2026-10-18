@@ -183,6 +183,7 @@ bool Castle::HasVisited(RoomLabel _label) const
 void Castle::InView(const Hero& _hero)
 {
 	choices.clear();						// clears the list of pathways (doors) in the vector
+	Art::CastleDoorsArt();
 
 	std::cout << "\t \033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><= \033[1;33m" << floorplan[currentRoom].GetRoomName() << "\033[0m\033[31m =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 
@@ -263,6 +264,10 @@ void Castle::InView(const Hero& _hero)
 				choices.push_back(door);											// add it to the list so the last room entered is always on the bottom
 			}
 		}
+	}
+	if (number > 1)
+	{
+		std::cout << "\033[" << number - 1 << "A\r";
 	}
 }
 
