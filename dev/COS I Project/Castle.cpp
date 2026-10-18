@@ -180,11 +180,13 @@ bool Castle::HasVisited(RoomLabel _label) const
 }
 
 
-void Castle::InView()
+void Castle::InView(const Hero& _hero)
 {
 	choices.clear();						// clears the list of pathways (doors) in the vector
 
 	std::cout << "\t \033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><= \033[1;33m" << floorplan[currentRoom].GetRoomName() << "\033[0m\033[31m =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+
+	_hero.PrintStats(false);
 
 	int number = 1;
 
@@ -230,11 +232,11 @@ void Castle::InView()
 				}
 				if (HasVisited(door.GetLabel()))									// if the room has been visited
 				{																	// print the direction and doors name
-					std::cout << "\t" << number++ << ". " << direction << ": " << floorplan[door.GetLabel()].GetRoomName() << std::endl;	
+					std::cout << "\r\033[4A\033[53C" << number++ << ". " << direction << ": " << floorplan[door.GetLabel()].GetRoomName() << "\033[4B" << std::endl;
 				}
 				else																// else just the direction
 				{
-					std::cout << "\t" << number++ << ". " << direction << std::endl;
+					std::cout << "\r\033[4A\033[53C" << number++ << ". " << direction << "\033[4B" << std::endl;
 				}
 				choices.push_back(door);											// then add it to the list "choices"
 			}
@@ -248,15 +250,15 @@ void Castle::InView()
 			{
 				if (door.GetDirection() == UP)										// and if the last room was going up
 				{
-					std::cout << "\t" << number++ << ". Go back up to the " << floorplan[lastRoom].GetRoomName() << std::endl;
+					std::cout << "\r\033[4A\033[53C" << number++ << ". Go back up to the " << floorplan[lastRoom].GetRoomName() << "\033[4B" << std::endl;
 				}
 				else if (door.GetDirection() == DOWN)								// else if the last room was going down
 				{
-					std::cout << "\t" << number++ << ". Go back down to the " << floorplan[lastRoom].GetRoomName() << std::endl;
+					std::cout << "\r\033[4A\033[53C" << number++ << ". Go back down to the " << floorplan[lastRoom].GetRoomName() << "\033[4B" << std::endl;
 				}
 				else																// else any other direction...
 				{
-					std::cout << "\t" << number++ << ". Go back to the " << floorplan[lastRoom].GetRoomName() << std::endl;
+					std::cout << "\r\033[4A\033[53C" << number++ << ". Go back to the " << floorplan[lastRoom].GetRoomName() << "\033[4B" << std::endl;
 				}
 				choices.push_back(door);											// add it to the list so the last room entered is always on the bottom
 			}
@@ -267,10 +269,30 @@ void Castle::InView()
 
 void Castle::Move(int index)
 {
+	std::string result;
+
 	if (index >= 0 && index < choices.size())					// if the number entered is greater than or equal to 0 but less than the "choices" list
 	{
 		const Pathway& door = choices[index];					// player chooses the door out of the menu "choices" and that choice gets stored in "door" 
 		RoomLabel destination = door.GetLabel();				// that same door asks GetLabel for the room then stores the answer in "destination"
+
+		if (door.GetLabel() == THRONEROOM)
+		{
+			Helper::clearScreen();
+
+			std::cout << "\r\033[10B\033[48C\033[31mReady To Face Your Fears?\033[0m" << std::endl;
+			std::cout << "\r\033[53CEnter: Proceed" << std::endl;
+			std::cout << "\r\033[52CEsc: Return Later" << std::endl;
+
+			if (Helper::EnterEsc())
+			{
+				facing = SOUTH;
+			}
+			else
+			{
+				return;
+			}
+		}
 
 		lastRoom = currentRoom;									// update the last room to the current room before the player leaves it
 		currentRoom = destination;								// update the current room to the room chosen (destination)
@@ -292,7 +314,91 @@ void Castle::Move(int index)
 		{
 			visited.push_back(currentRoom);						// add that room to the vector
 		}
+
+		Helper::clearScreen();
+		if (door.GetDirection() == UP)
+		{
+			if (floorplan[currentRoom].GetRoomName() == "Entrance Hall 2FL")
+			{
+				result = "\r\033[10B\033[32CYou ascend the Grand Staircase to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			}
+			if (floorplan[currentRoom].GetRoomName() == "West Tower" || floorplan[currentRoom].GetRoomName() == "East Tower")
+			{
+				result = "\r\033[10B\033[46CYou ascend the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			}
+			if (floorplan[lastRoom].GetRoomName() == "Dungeon")
+			{
+				result = "\r\033[10B\033[31CYou feel relieved as you find your way out of the \033[1;33m" + floorplan[lastRoom].GetRoomName() + "\033[0m\n";
+			}
+			if (floorplan[currentRoom].GetRoomName() == "Dungeon")
+			{
+				result = "\r\033[10B\033[32CYou remain cautious as you make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			}
+		}
+		else if (door.GetDirection() == DOWN) 
+		{
+			if (floorplan[currentRoom].GetRoomName() == "Entrance Hall")
+			{
+				result = "\r\033[10B\033[33CYou descend the Grand Staircase to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			}
+			if (floorplan[lastRoom].GetRoomName() == "West Tower" || floorplan[lastRoom].GetRoomName() == "East Tower")
+			{
+				result = "\r\033[10B\033[46CYou descend the \033[1;33m" + floorplan[lastRoom].GetRoomName() + "\033[0m\n";
+			}
+			if (floorplan[currentRoom].GetRoomName() == "Dungeon")
+			{
+				result = "\r\033[10B\033[30CYou hear groans and mad screams as you descend into the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			}
+			if (floorplan[currentRoom].GetRoomName() == "Catacombs")
+			{
+				result = "\r\033[10B\033[33CThe air fills with smells of blood and rotting flesh"
+					"\r\033[2K\033[26CYou hear something very unsettling as you descend into the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			}
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Entrance Hall")
+		{
+			result = "\r\033[10B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Alchemist's Lab")
+		{
+			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Portrait Gallery")
+		{
+			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Observatory")
+		{
+			result = "\r\033[10B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Banquet Hall")
+		{
+			result = "\r\033[10B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Master Bedroom")
+		{
+			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Dressing Room")
+		{
+			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Hall of Mirrors")
+		{
+			result = "\r\033[10B\033[40CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+		else if (floorplan[currentRoom].GetRoomName() == "Throne Room")
+		{
+			result = "\r\033[10B\033[48CYour \033[1;33mFate \033[0mAwaits You...\n";
+		}
+		else
+		{
+			result = "\r\033[10B\033[43CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+		}
+
 	}
+	Helper::Type(result, 55);
+	Helper::Pause();
 }
 
 RoomLabel Castle::GetCurrentRoom() const { return currentRoom; }

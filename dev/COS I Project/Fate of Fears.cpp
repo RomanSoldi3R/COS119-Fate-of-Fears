@@ -16,8 +16,6 @@
 
 int main()
 {
-	srand(time(NULL));
-
 	int esc = 27;																// variables
 	int backspace = 8;
 	int enter = 13;
@@ -62,22 +60,37 @@ int main()
 
 			if (hero != nullptr)
 			{
-				Castle castle;	//================================== CASTLE ==================================
+				Art::EntranceHallArt();	//================================== CASTLE ==================================
+				Helper::Pause();
 
+				Castle castle;
+				bool result = true;
 				bool inCastle = true;
 				while (inCastle)
 				{
 					Helper::clearScreen();
 
-					castle.InView();
+					castle.InView(*hero);
 
 					int key = _getch();
 					if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5')
 					{
 						int index = key - '0' - 1;
-						std::cout << "\r\033[2K";
 
 						castle.Move(index);
+
+						int fightChance = Helper::RandomNumberGenerator(1, 4);
+						if (fightChance == 1)
+						{
+							Goblin goblin("Goblin", 100, 10);
+							result = Battle::Sequence(*hero, goblin);
+
+							if (result == false)
+							{
+								inCastle = false;
+								break;
+							}
+						}
 					}
 					if (key == esc)
 					{
@@ -176,11 +189,3 @@ int main()
 // once the final boss is defeated, you win
 // if you die, return to the main menu
 
-//Goblin goblin("Goblin", 125, 15);
-//result = Battle::Sequence(*hero, goblin);
-//
-//if (result == false)
-//{
-//	inCastle = false;
-//	break;
-//}

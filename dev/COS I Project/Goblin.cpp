@@ -18,9 +18,9 @@ void Goblin::PrintStats() const
 
 std::string Goblin::TakeTurn(Character & target)
 {
-	int damage = rand() % 11 + GetAttackPower();					// variables
-	int hitChance = rand() % 10;									// 10% chance
-	int critChance = rand() % 10;									// 10% chance
+	int damage = Helper::RandomNumberGenerator(1, 10) + GetAttackPower();
+	int hitChance = Helper::RandomNumberGenerator(1, 10);			// 10% chance
+	int critChance = Helper::RandomNumberGenerator(1, 10);			// 10% chance
 	int critDamage = damage * 2;
 	int before = 0;
 	int after = 0;

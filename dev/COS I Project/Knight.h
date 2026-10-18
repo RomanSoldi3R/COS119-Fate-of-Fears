@@ -30,7 +30,7 @@ public:
 
 	void RecoverStamina(int amount);									// recover stamina method
 
-	void PrintStats() const override;									// overrides
+	void PrintStats(bool art = true) const override;					// overrides
 	std::string TakeDmg(float _physical, float _elemental = 0.0f) override;
 	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;

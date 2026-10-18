@@ -19,6 +19,12 @@ namespace Battle
 
 			action = _hero.TakeTurn(_enemy);
 			
+			if (action == "\t::You fled the battle!::")
+			{
+				Helper::Pause();
+				break;
+			}
+
 			Helper::clearScreen();
 			_hero.PrintStats();
 			_enemy.PrintStats();

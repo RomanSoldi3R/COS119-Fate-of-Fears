@@ -31,14 +31,25 @@ void Knight::RecoverStamina(int amount)
 // ============================== Overrides ==============================
 
 
-void Knight::PrintStats() const
+void Knight::PrintStats(bool art) const
 {
-	Art::KnightIcon();
-	std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	if (art == false)
+	{
+		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	}
+	else
+	{
+		Art::KnightIcon();
+		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	}
 }
 
 
@@ -80,13 +91,15 @@ std::string Knight::TakeTurn(Character& target)
 	std::cout << "\t1. Attack" << std::endl;								// print menu
 	std::cout << "\t2. [Skills]" << std::endl;
 	std::cout << "\t3. Health Potion" << "\r\033[24C{" << potionCount << "}" << std::endl;
+	std::cout << "\t4. Flee" << std::endl;
 
 	bool running = true;													// variables
 	bool inMenu = true;
-	int damage = rand() % 11 + GetAttackPower();
-	int hitChance = rand() % 20;											// 5% chance
-	int critChance = rand() % 10;											// 10% chance
+	int damage = Helper::RandomNumberGenerator(1,10) + GetAttackPower();
+	int hitChance = Helper::RandomNumberGenerator(1, 20);					// 5% chance
+	int critChance = Helper::RandomNumberGenerator(1, 10);					// 10% chance
 	int critDamage = damage * 2;
+	int flee = Helper::RandomNumberGenerator(1, 4);							// 25% chance
 	int before = 0;
 	int after = 0;
 	int total = 0;
@@ -99,11 +112,11 @@ std::string Knight::TakeTurn(Character& target)
 
 		if (key == '1')	//======================== Attack ========================
 		{
-			Helper::ErasePreviousLines(3);
+			Helper::ErasePreviousLines(4);
 
-			if (hitChance != 1)												// chance to miss
+			if (hitChance != 1)												// 95% chance to hit
 			{
-				if (critChance == 1)										// chance to crit
+				if (critChance == 1)										// 10% chance to crit
 				{
 					before = target.GetHealth();
 					target.TakeDmg(critDamage);								// deal twice the normal damage
@@ -157,7 +170,7 @@ std::string Knight::TakeTurn(Character& target)
 
 		if (key == '2')	//======================== [Skills] ========================
 		{
-			Helper::ErasePreviousLines(3);
+			Helper::ErasePreviousLines(4);
 
 			int counter = 1;
 
@@ -180,6 +193,7 @@ std::string Knight::TakeTurn(Character& target)
 					std::cout << "\t1. Attack" << std::endl;				// print menu
 					std::cout << "\t2. [Skills]" << std::endl;
 					std::cout << "\t3. Health Potion" << "\r\033[24C{" << potionCount << "}" << std::endl;
+					std::cout << "\t4. Flee" << std::endl;
 					break;
 				}
 
@@ -237,13 +251,32 @@ std::string Knight::TakeTurn(Character& target)
 				result = "\t::\033[32mYou recovered +" + std::to_string(total) + " Health\033[0m::";
 				Helper::Type(result, 45);
 
-				std::cout << "\r\033[1A\033[24C{" << potionCount << "}" << std::endl;
-				std::cout << "\r\033[06A\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "\033[0m\033[06B" << std::flush;
+				std::cout << "\r\033[2A\033[24C{" << potionCount << "}\033[2B" << std::endl;
+				std::cout << "\r\033[08A\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "\033[0m\033[07B" << std::flush;
 				continue;
 			}
 			
 		}
 		
+		if (key == '4')	//======================== Flee ========================
+		{
+			Helper::ErasePreviousLines(4);
+
+			if (flee == 1)
+			{
+				std::cout << "\r\033[2K";
+				result = "\t::You fled the battle!::";
+				break;
+			}
+			else
+			{
+				std::cout << "\r\033[2K";
+				result = "\t::You failed to flee::";
+				break;
+			}
+
+		}
+
 	}
 	
 	Helper::Type(result, 45);
@@ -260,13 +293,13 @@ void Knight::TurnOver()
 		if (stamina != maxStamina)
 		{
 			int before = stamina;
-			RecoverStamina(rand() % 6 + 5);
+			RecoverStamina(Helper::RandomNumberGenerator(1,5) + 5);
 			int after = stamina;
 			int total = after - before;
 
 			staminaCount = 0;
 			std::cout << "\r\033[2K";
-			Helper::ErasePreviousLines(4);
+			Helper::ErasePreviousLines(5);
 			Helper::Type("\t::\033[33mYou recovered " + std::to_string(total) + " stamina\033[0m::", 45);
 			Helper::Pause();
 		}

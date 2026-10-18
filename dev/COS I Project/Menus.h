@@ -29,14 +29,12 @@ namespace Menu
 	{
 		Helper::clearScreen();
 
-		std::cout << "\r\033[2K" << std::endl;
 		std::cout << "\r\033[10B\033[35C\033[31m   =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m   " << std::endl;
-		std::cout << "\r\033[35C\033[31m   ||\033[0m 1.           \033[33m[Controls]\033[0m               \r\033[79C\033[31m||   \033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m   ||\033[0m 2.           \033[33m[Beastiary]\033[0m              \r\033[79C\033[31m||   \033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m   ||\033[0m 3.        \033[33mExit to Main Menu\033[0m           \r\033[79C\033[31m||   \033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m   ||\033[0m                \033[1;4;33mOPTIONS\033[0m                \r\033[79C\033[31m||   \033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m   ||\033[0m 1.           [Controls]               \r\033[79C\033[31m||   \033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m   ||\033[0m 2.           [Beastiary]              \r\033[79C\033[31m||   \033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m   ||\033[0m 3.        Exit to Main Menu           \r\033[79C\033[31m||   \033[0m" << std::endl;
 		std::cout << "\r\033[35C\033[31m   =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m   " << std::endl;
-		std::cout << "\r\033[2K" << std::endl;
-		std::cout << "\r\033[2K" << std::endl;
 	}
 
 	inline void ControlsMenu()
@@ -44,13 +42,13 @@ namespace Menu
 		std::cout << "\r\033[3J\033[H";
 
 		std::cout << "\r\033[10B\033[35C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m||\033[0m                  \033[4;33mControls\033[0m                   \r\033[82C\033[31m||\033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m||\033[0m \033[4;33mEnter\033[0m: Continue or accept                   \r\033[82C\033[31m||\033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m||\033[0m \033[4;33mESC\033[0m: Go back to the previous menu           \r\033[82C\033[31m||\033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m||\033[0m \033[4;33mBackspace\033[0m: Previous menu(Combat)            \r\033[82C\033[31m||\033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m||\033[0m                   \033[4;33mLegend\033[0m                    \r\033[82C\033[31m||\033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m||\033[0m \033[4;33m[...]\033[0m: Has a menu within that option        \r\033[82C\033[31m||\033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m||\033[0m \033[4;33m{...}\033[0m: Doesn't use up a turn                \r\033[82C\033[31m||\033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m||\033[0m                  \033[1;4;33mControls\033[0m                  \r\033[82C\033[31m||\033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m||\033[0m \033[33mEnter\033[0m: Continue or accept                      \r\033[82C\033[31m||\033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m||\033[0m \033[33mESC\033[0m: Go back to the previous menu              \r\033[82C\033[31m||\033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m||\033[0m \033[33mBackspace\033[0m: Previous menu(Combat)               \r\033[82C\033[31m||\033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m||\033[0m                   \033[1;4;33mLegend\033[0m                   \r\033[82C\033[31m||\033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m||\033[0m \033[33m[...]\033[0m: Has a menu within that option           \r\033[82C\033[31m||\033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m||\033[0m \033[33m{...}\033[0m: Doesn't use up a turn                   \r\033[82C\033[31m||\033[0m" << std::endl;
 		std::cout << "\r\033[35C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 

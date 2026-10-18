@@ -9,9 +9,9 @@ Sorceress::Sorceress(const std::string& _name, int _health, int _attackPower) :
 	shield(false),
 	shieldCount(0),
 	spellbook{
-		Ability("Fireball", 42, 0, 35),
-		Ability("Mana Shield", 30),
-		Ability("Heal", 50) }
+		Ability("Fireball", 24, 0, 45),
+		Ability("Mana Shield", 20),
+		Ability("Heal", 32) }
 {}
 
 
@@ -30,13 +30,25 @@ void Sorceress::RecoverMana(int amount)
 
 // ============================== Overrides ==============================
 
-void Sorceress::PrintStats() const
+void Sorceress::PrintStats(bool art) const
 {
-	std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
-	std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	if (art == false)
+	{
+		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	}
+	else
+	{
+
+		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
+	}
 }
 
 
@@ -85,13 +97,15 @@ std::string Sorceress::TakeTurn(Character& target)
 	std::cout << "\t1. Attack" << std::endl;								// print menu
 	std::cout << "\t2. [Spell Book]" << std::endl;
 	std::cout << "\t3. Mana Potion" << "\r\033[23C{" << potionCount << "}" << std::endl;
+	std::cout << "\t4. Flee" << std::endl;
 	
 	bool running = true;													// variables
 	bool inMenu = true;
-	int damage = rand() % 11 + GetAttackPower();
-	int hitChance = rand() % 10;											// 10% chance
-	int critChance = rand() % 10;											// 10% chance
+	int damage = Helper::RandomNumberGenerator(1,10) + GetAttackPower();
+	int hitChance = Helper::RandomNumberGenerator(1, 10);					// 10% chance
+	int critChance = Helper::RandomNumberGenerator(1, 10);					// 10% chance
 	int critDamage = damage * 2;
+	int flee = Helper::RandomNumberGenerator(1, 4);							// 25% chance
 	int before = 0;
 	int after = 0;
 	int total = 0;
@@ -104,7 +118,7 @@ std::string Sorceress::TakeTurn(Character& target)
 
 		if (key == '1')	//======================== Attack ========================
 		{
-			Helper::ErasePreviousLines(3);
+			Helper::ErasePreviousLines(4);
 
 			if (hitChance != 1)												// chance to miss
 			{
@@ -162,7 +176,7 @@ std::string Sorceress::TakeTurn(Character& target)
 
 		if (key == '2')	//======================== [Spell Book] ========================
 		{
-			Helper::ErasePreviousLines(3);
+			Helper::ErasePreviousLines(4);
 
 			int counter = 1;
 
@@ -185,6 +199,7 @@ std::string Sorceress::TakeTurn(Character& target)
 					std::cout << "\t1. Attack" << std::endl;				// print menu
 					std::cout << "\t2. [Spell Book]" << std::endl;
 					std::cout << "\t3. Mana Potion" << "\r\033[23C{" << potionCount << "}" << std::endl;
+					std::cout << "\t4. Flee" << std::endl;
 					break;
 				}
 
@@ -206,7 +221,7 @@ std::string Sorceress::TakeTurn(Character& target)
 
 						if (hitChance != 1)												// chance to miss
 						{
-							damage = rand() % 11 + spellbook[FIREBALL].GetElemental();
+							damage = Helper::RandomNumberGenerator(1, 10) + spellbook[FIREBALL].GetElemental();
 							critDamage = damage * 2;
 
 							if (critChance == 1)										// chance to crit
@@ -307,7 +322,7 @@ std::string Sorceress::TakeTurn(Character& target)
 						mana = mana - spellbook[HEAL].GetAbilityCost();		// uses mana up
 
 						before = GetHealth();
-						Heal(rand() % (50) + 15);							// heals 15 + (1 0f 50)
+						Heal(Helper::RandomNumberGenerator(1, 40) + 25);	// heals 25 + (1 out 0f 40)
 						after = GetHealth();
 						total = after - before;
 
@@ -353,9 +368,28 @@ std::string Sorceress::TakeTurn(Character& target)
 				result = "\t::\033[35mYou restore +" + std::to_string(total) + " Mana\033[0m::";
 				Helper::Type(result, 45);
 
-				std::cout << "\r\033[1A\033[23C{" << potionCount << "}" << std::endl;
-				std::cout << "\r\033[05A\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "\033[0m\033[05B" << std::flush;
+				std::cout << "\r\033[2A\033[23C{" << potionCount << "}\033[2B" << std::endl;
+				std::cout << "\r\033[07A\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "\033[0m\033[06B" << std::flush;
 				continue;
+			}
+
+		}
+
+		if (key == '4')	//======================== Flee ========================
+		{
+			Helper::ErasePreviousLines(4);
+
+			if (flee == 1)
+			{
+				std::cout << "\r\033[2K";
+				result = "\t::You fled the battle!::";
+				break;
+			}
+			else
+			{
+				std::cout << "\r\033[2K";
+				result = "\t::You failed to flee::";
+				break;
 			}
 
 		}
@@ -371,7 +405,7 @@ void Sorceress::TurnOver()
 	if (mana != maxMana)
 	{
 		int before = mana;
-		RecoverMana(rand() % 6 + 5);
+		RecoverMana(Helper::RandomNumberGenerator(1,5) + 5);
 		int after = mana;
 		int total = after - before;
 

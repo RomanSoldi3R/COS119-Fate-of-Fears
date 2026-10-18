@@ -21,7 +21,7 @@ public:
 	Castle();
 	
 	bool HasVisited(RoomLabel _label) const;
-	void InView();
+	void InView(const Hero& _hero);
 	void Move(int index);
 
 	RoomLabel GetCurrentRoom() const;
