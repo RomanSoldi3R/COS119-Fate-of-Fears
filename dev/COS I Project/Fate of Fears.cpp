@@ -21,6 +21,7 @@ int main()
 	int enter = 13;
 	int c = 99;
 	bool titleMenu = true;
+	std::string dialog;
 
 	while (titleMenu)															// start of the title menu loop
 	{
@@ -60,7 +61,13 @@ int main()
 			{
 				Helper::clearScreen();
 				Art::CastleGateArt();
+				
+				dialog = "\r\033[15A\033[38CYou approach the Main Gate to the Castle...\n"
+					"\033[40C\033[31mFear\033[0m can be your greatest strength,\n" 
+					"\033[42CBut if you let it consume you...\n"
+					"\033[37CYour \033[1;33mFate\033[0m will be decided before it begins...\n";
 
+				Helper::Type(dialog, 85);
 				Helper::Pause();
 
 				Castle castle;
