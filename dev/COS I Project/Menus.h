@@ -11,18 +11,19 @@ namespace Menu
 		Helper::clearScreen();
 		Art::TitleArt();
 
-		std::cout << "\r\033[49C" << "Enter: Start Game" << std::endl;
-		std::cout << "\r\033[52C" << "C: Controls" << std::endl;
-		std::cout << "\r\033[53C" << "Esc: Exit" << std::endl;
+		std::cout << "\r\033[50C" << "Enter: \033[1;33mStart Game\033[0m" << std::endl;
+		std::cout << "\r\033[51C" << "C Key: \033[1;33mControls\033[0m" << std::endl;
+		std::cout << "\r\033[55C" << "Esc: \033[1;33mExit\033[0m" << std::endl;
 	}
 
 	inline void HeroMenu()
 	{
 		Helper::clearScreen();
 		Art::KnightArt();
+		Art::SorceressArt();
 
-		std::cout << "\r\033[26A\033[50C" << "Select Class" << "\033[26B" << std::endl;
-		std::cout << "\r\033[18C" << "1: Knight" << "\033[60C" << "2: Sorceress" << std::endl;
+		std::cout << "\r\033[26A\033[54C" << "\033[1;4;33mSelect Class\033[0m" << "\033[26B" << std::endl;
+		std::cout << "\r\033[19C" << "1: \033[33mKnight\033[0m" << "\r\033[89C" << "2: \033[35mSorceress\033[0m" << std::endl;
 	}
 
 	inline void OptionsMenu()

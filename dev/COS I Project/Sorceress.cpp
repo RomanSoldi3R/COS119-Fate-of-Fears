@@ -42,7 +42,7 @@ void Sorceress::PrintStats(bool art) const
 	}
 	else
 	{
-
+		Art::SorceressIcon();
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
