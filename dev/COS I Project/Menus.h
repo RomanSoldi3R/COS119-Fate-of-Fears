@@ -32,8 +32,8 @@ namespace Menu
 
 		std::cout << "\r\033[10B\033[35C\033[31m   =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m   " << std::endl;
 		std::cout << "\r\033[35C\033[31m   ||\033[0m                \033[1;4;33mOPTIONS\033[0m                \r\033[79C\033[31m||   \033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m   ||\033[0m 1.           [Controls]               \r\033[79C\033[31m||   \033[0m" << std::endl;
-		std::cout << "\r\033[35C\033[31m   ||\033[0m 2.           [Beastiary]              \r\033[79C\033[31m||   \033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m   ||\033[0m 1.           [????????]               \r\033[79C\033[31m||   \033[0m" << std::endl;
+		std::cout << "\r\033[35C\033[31m   ||\033[0m 2.           [Controls]               \r\033[79C\033[31m||   \033[0m" << std::endl;
 		std::cout << "\r\033[35C\033[31m   ||\033[0m 3.        Exit to Main Menu           \r\033[79C\033[31m||   \033[0m" << std::endl;
 		std::cout << "\r\033[35C\033[31m   =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m   " << std::endl;
 	}
@@ -65,42 +65,42 @@ namespace Menu
 				Menu::OptionsMenu();
 
 				int key = _getch();
-				if (key == '1')										// controls menu
+				if (key == '1')
+				{
+					int menu = true;
+					while (menu)		//================================== ??? Menu ==================================
+					{
+						// new menu goes here
+
+						int key = _getch();
+						if (key == esc || key == '1')				// go back to options menu
+						{
+							menu = false;
+						}
+					}
+				}
+				if (key == '2')
 				{
 					int controlsMenu = true;
-					while (controlsMenu)
+					while (controlsMenu)		//================================== Controls Menu ==================================
 					{
 						Menu::ControlsMenu();
 
 						int key = _getch();
-						if (key == esc || key == '1')				// go back to options menu
+						if (key == esc || key == '2')				// go back to options menu
 						{
 							controlsMenu = false;
 						}
 					}
 				}
-				if (key == '2')										// beastiary menu
+				if (key == '3')
 				{
-					int beastiaryMenu = true;
-					while (beastiaryMenu)
-					{
-						// beastiary menu goes here
-
-						int key = _getch();
-						if (key == esc || key == '2')				// go back to options menu
-						{
-							beastiaryMenu = false;
-						}
-					}
+					optionsMenu = false;							// exit the options menu
+					return false;									// exit to main menu
 				}
-				if (key == '3')										// exit game
+				if (key == esc)
 				{
-					optionsMenu = false;
-					return false;
-				}
-				if (key == esc)										// go back to game
-				{
-					optionsMenu = false;
+					optionsMenu = false;							// exit the options menu
 				}
 			}
 		}
