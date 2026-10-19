@@ -86,9 +86,14 @@ int main()
 
 						castle.Move(index);
 
-						int fightChance = Helper::RandomNumberGenerator(1, 4);
+						int fightChance = Helper::RandomNumberGenerator(1, 3);
 						if (fightChance == 1)
 						{
+							Helper::clearScreen();
+							dialog = "\r\033[13B\033[50C\033[1;33mPrepare for Battle!\033[0m\n";
+							Helper::Type(dialog, 45);
+							Helper::Pause();
+
 							Goblin goblin("Goblin", 100, 10);
 							result = Battle::Sequence(*hero, goblin);
 

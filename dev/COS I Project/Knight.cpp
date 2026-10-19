@@ -300,7 +300,7 @@ void Knight::TurnOver()
 
 			staminaCount = 0;
 			std::cout << "\r\033[2K";
-			Helper::ErasePreviousLines(5);
+			Helper::ErasePreviousLines(4);
 			Helper::Type("\t::\033[33mYou recovered " + std::to_string(total) + " stamina\033[0m::", 45);
 			Helper::Pause();
 		}
