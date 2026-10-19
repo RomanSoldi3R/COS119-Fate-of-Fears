@@ -95,5 +95,8 @@
     <ClInclude Include="Menus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

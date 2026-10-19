@@ -99,7 +99,7 @@ std::string Knight::TakeTurn(Character& target)
 	int hitChance = Helper::RandomNumberGenerator(1, 20);					// 5% chance
 	int critChance = Helper::RandomNumberGenerator(1, 10);					// 10% chance
 	int critDamage = damage * 2;
-	int flee = Helper::RandomNumberGenerator(1, 4);							// 25% chance
+	int flee = Helper::RandomNumberGenerator(1, 3);							// 33% chance
 	int before = 0;
 	int after = 0;
 	int total = 0;

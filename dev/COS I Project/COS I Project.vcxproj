@@ -155,6 +155,7 @@
     <ClInclude Include="Battle.h" />
     <ClInclude Include="Castle.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Dialog.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Art.h" />
     <ClInclude Include="Goblin.h" />

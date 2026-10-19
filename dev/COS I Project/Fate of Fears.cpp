@@ -6,11 +6,12 @@
 #include "Helper.h"
 #include "Art.h"
 #include "Menus.h"
+#include "Dialog.h"
+#include "Battle.h"
 #include "Castle.h"
 #include "Character.h"
 #include "Knight.h"
 #include "Sorceress.h"
-#include "Battle.h"
 #include "Goblin.h"
 
 
@@ -21,9 +22,8 @@ int main()
 	int enter = 13;
 	int c = 99;
 	bool titleMenu = true;
-	std::string dialog;
-
-	while (titleMenu)															// start of the title menu loop
+	
+	while (titleMenu)		//================================== Main Menu ==================================
 	{
 		Menu::TitleMenu();
 
@@ -33,7 +33,7 @@ int main()
 			bool heroMenu = true;												// resets the heroMenu variable to true in case the player hits esc changing it to false, you can enter the hero menu again
 			std::unique_ptr<Hero> hero;
 
-			while (heroMenu)													// start of the hero menu loop
+			while (heroMenu)		//================================== Class Selection ==================================
 			{
 				Menu::HeroMenu();
 
@@ -59,16 +59,7 @@ int main()
 
 			if (hero != nullptr)
 			{
-				Helper::clearScreen();
-				Art::CastleGateArt();
-				
-				dialog = "\r\033[15A\033[38CYou approach the Main Gate to the Castle...\n\n"
-					"\033[41C\033[31mFear\033[0m can be your greatest strength,\n\n" 
-					"\033[42CBut if you let it consume you...\n\n"
-					"\033[37CYour \033[1;33mFate\033[0m will be decided before it begins...\n";
-
-				Helper::Type(dialog, 85);
-				Helper::Pause();
+				Dialog::CastleDialog();
 
 				Castle castle;
 				bool result = true;
@@ -89,10 +80,7 @@ int main()
 						int fightChance = Helper::RandomNumberGenerator(1, 3);
 						if (fightChance == 1)
 						{
-							Helper::clearScreen();
-							dialog = "\r\033[13B\033[50C\033[1;33mPrepare for Battle!\033[0m\n";
-							Helper::Type(dialog, 45);
-							Helper::Pause();
+							Dialog::FightDialog();
 
 							Goblin goblin("Goblin", 100, 10);
 							result = Battle::Sequence(*hero, goblin);
@@ -110,12 +98,12 @@ int main()
 					}
 
 
-				}		//================================== CASTLE ==================================
+				}		
 
 			}
 
 		}
-		if (key == c)															// controls menu at the main menu
+		if (key == c)		//================================== Controls Menu (Main Menu) ==================================
 		{
 			int controlsMenu = true;
 			while (controlsMenu)
@@ -128,7 +116,7 @@ int main()
 					controlsMenu = false;
 				}
 			}
-		}
+		}		//================================== Exit Game (Main Menu) ==================================
 		if (key == esc)															// else set title menu to false which exits the game
 		{
 			titleMenu = false;
