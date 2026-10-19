@@ -48,6 +48,9 @@
     <ClCompile Include="Pathway.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Final_Boss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hero.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Final_Boss.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

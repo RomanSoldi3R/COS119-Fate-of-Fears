@@ -415,7 +415,7 @@ void Sorceress::TurnOver()
 
 		std::cout << "\r\033[2K";
 		Helper::ErasePreviousLines(4);
-		Helper::Type("\t::You recovered \033[1;35m" + std::to_string(total) + " mana\033[0m::", 45);
+		Helper::Type("\t::You recovered \033[1;35m+" + std::to_string(total) + " mana\033[0m::", 45);
 		Helper::Pause();
 	}
 	if (shield)

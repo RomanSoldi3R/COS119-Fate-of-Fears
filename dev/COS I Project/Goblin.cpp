@@ -34,7 +34,7 @@ std::string Goblin::TakeTurn(Character & target)
 		if (critChance == 1)										// if crit chance lands on 1 (out of 10)
 		{
 			before = target.GetHealth();
-			broken = target.TakeDmg(critDamage);					// deal twice the normal damage
+			broken = target.TakeDmg(critDamage, critDamage);		// deal twice the normal damage
 			after = target.GetHealth();
 			total = before - after;
 
@@ -65,7 +65,7 @@ std::string Goblin::TakeTurn(Character & target)
 		else
 		{
 			before = target.GetHealth();
-			broken = target.TakeDmg(damage);						// else do normal damage
+			broken = target.TakeDmg(damage, damage);				// else do normal damage
 			after = target.GetHealth();
 			total = before - after;
 

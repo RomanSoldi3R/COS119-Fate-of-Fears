@@ -252,7 +252,7 @@ std::string Knight::TakeTurn(Character& target)
 				after = GetHealth();
 				total = after - before;
 
-				result = "\t::\033[32mYou recovered +" + std::to_string(total) + " Health\033[0m::";
+				result = "\t::You recovered \033[1;32m+" + std::to_string(total) + " Health\033[0m::";
 				Helper::Type(result, 45);
 
 				std::cout << "\r\033[2A\033[24C{" << potionCount << "}\033[2B" << std::endl;
@@ -304,7 +304,7 @@ void Knight::TurnOver()
 			staminaCount = 0;
 			std::cout << "\r\033[2K";
 			Helper::ErasePreviousLines(4);
-			Helper::Type("\t::You recovered \033[1;33m" + std::to_string(total) + " stamina\033[0m::", 45);
+			Helper::Type("\t::You recovered \033[1;33m+" + std::to_string(total) + " stamina\033[0m::", 45);
 			Helper::Pause();
 		}
 	}
