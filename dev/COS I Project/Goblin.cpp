@@ -8,6 +8,7 @@ Goblin::Goblin(const std::string& _name, int _health, int _attackPower) :
 
 void Goblin::PrintStats() const
 {
+	Art::GoblinIcon();
 	std::cout << "\r\033[5A\033[67C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	std::cout << "\r\033[67C\033[31m||\033[0m" << "\r\033[85C" << GetName() << "\r\033[108C" << "\033[31m||\033[0m" << std::endl;
 	std::cout << "\r\033[67C\033[31m||\033[0m Health: " << "\r\033[100C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << std::setw(3) << std::setfill('0') << GetMaxHealth() << "\033[0m\r\033[108C" << "\033[31m||\033[0m" << std::endl;
