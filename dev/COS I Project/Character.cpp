@@ -8,7 +8,8 @@ Character::Character(const std::string& _name, int _health, int _attackPower) :
 	attackPower(_attackPower)
 {}
 
-void Character::TakeDmg(float _physical, float _elemental)
+
+std::string Character::TakeDmg(float _physical, float _elemental)
 {
 	if (_physical <= 0)				// if physical damage taken is less than or equal to 0
 	{
@@ -26,7 +27,9 @@ void Character::TakeDmg(float _physical, float _elemental)
 	{
 		health = 0;					// health gets set to 0
 	}
+	return "";
 }
+
 
 void Character::Heal(int heal)
 {
@@ -42,6 +45,7 @@ void Character::Heal(int heal)
 	}
 }
 
+
 bool Character::IsAlive() const
 {
 	bool life;
@@ -56,6 +60,7 @@ bool Character::IsAlive() const
 	}
 	return life;					// return false/true which as a bool is 0/1
 }
+
 
 std::string Character::GetName() const { return name; }
 int Character::GetHealth() const { return health; }

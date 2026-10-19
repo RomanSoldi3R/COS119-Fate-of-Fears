@@ -7,6 +7,7 @@
 #include "Helper.h"
 #include "Art.h"
 #include "Ability.h"
+#include "Menus.h"
 
 
 class Sorceress : public Hero
@@ -15,11 +16,10 @@ class Sorceress : public Hero
 	int maxMana;
 	int potionCount;
 	bool shield;
-	int shieldResistance;
 	int shieldCount;
 	std::vector<Ability> spellbook;
 
-	enum spellList
+	enum SpellList
 	{
 		FIREBALL,
 		SHIELD,
@@ -32,8 +32,8 @@ public:
 
 	void RecoverMana(int amount);											// recover mana method
 
-	void PrintStats() const override;										// overrides
-	void TakeDmg(float physical, float elemental = 0.0f) override;
+	void PrintStats(bool art = true) const override;						// overrides
+	std::string TakeDmg(float physical, float elemental = 0.0f) override;
 	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;
 
