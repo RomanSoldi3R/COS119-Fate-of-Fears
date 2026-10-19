@@ -40,10 +40,8 @@ int main()
 				int key = _getch();												// accepts one key press
 				if (key == '1')													// if key press is 1 - create knight
 				{
-					
 					hero = std::make_unique<Knight>("Knight", 100, 25);			// make_unique: safely constructs an new object on the heap and returns an std::make_unique<T>(args...) wrapped inside a unique_ptr<T>
-					heroMenu = false;
-					
+					heroMenu = false;	
 				}
 				if (key == '2')													// if key press is 2 - create sorcerer
 				{

@@ -10,8 +10,8 @@ void Goblin::PrintStats() const
 {
 	Art::GoblinIcon();
 	std::cout << "\r\033[67C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-	std::cout << "\r\033[67C\033[31m||\033[0m" << "\r\033[85C" << GetName() << "\r\033[108C" << "\033[31m||\033[0m" << std::endl;
-	std::cout << "\r\033[67C\033[31m||\033[0m Health: " << "\r\033[100C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << std::setw(3) << std::setfill('0') << GetMaxHealth() << "\033[0m\r\033[108C" << "\033[31m||\033[0m" << std::endl;
+	std::cout << "\r\033[67C\033[31m||\033[0m" << "\r\033[85C\033[38;5;28m" << GetName() << "\r\033[108C" << "\033[31m||\033[0m" << std::endl;
+	std::cout << "\r\033[67C\033[31m||\033[0m Health: " << "\r\033[100C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << std::setw(3) << std::setfill('0') << GetMaxHealth() << "\033[0m\r\033[108C" << "\033[31m||\033[0m" << std::endl;
 	std::cout << "\r\033[67C\033[31m||\033[0m" << "\033[0m\r\033[108C" << "\033[31m||\033[0m" << std::endl;
 	std::cout << "\r\033[67C\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 }
@@ -41,24 +41,24 @@ std::string Goblin::TakeTurn(Character & target)
 			if (total >= before)									// if overkill
 			{
 				result = "\r\033[67C::Critical Hit!::"
-					"\r\033[2K\033[67C::" + GetName() + " CRACKS you for \033[33m" + std::to_string(critDamage) + "\033[0m damage!::";
+					"\r\033[2K\033[67C::" + GetName() + " CRACKS you for \033[33m" + std::to_string(critDamage) + " \033[38;5;94mphysical\033[0m damage::";
 			}
 			else if (total >= critDamage)
 			{
 				result = "\r\033[67C::Critical Hit!::"
-					"\r\033[2K\033[67C::" + GetName() + " CRACKS you for \033[33m" + std::to_string(total) + "\033[0m damage!::";
+					"\r\033[2K\033[67C::" + GetName() + " CRACKS you for \033[33m" + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
 			}
 			else
 			{
 				if (!broken.empty())
 				{
 					result = "\r\033[67C::" + GetName() + " swings his club in ANGER!::"
-						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " damage::" + "\r\033[2K\t::" + GetName() + broken;
+						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::" + "\r\033[2K\t::" + GetName() + broken;
 				}
 				else
 				{
 					result = "\r\033[67C::" + GetName() + " swings his club in ANGER!::"
-						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " damage::";
+						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
 				}
 			}
 		}
@@ -71,23 +71,23 @@ std::string Goblin::TakeTurn(Character & target)
 
 			if (total >= before)									// if kill
 			{
-				result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(damage) + " damage::";
+				result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(damage) + " \033[38;5;94mphysical\033[0m damage::";
 			}
 			else if (total >= damage)
 			{
-				result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(total) + " damage::";
+				result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
 			}
 			else
 			{
 				if (!broken.empty())
 				{
 					result = "\r\033[67C::" + GetName() + " swings wildly::"
-						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " damage::" + "\r\033[2K\t::" + GetName() + broken;
+						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::" + "\r\033[2K\t::" + GetName() + broken;
 				}
 				else
 				{
 					result = "\r\033[67C::" + GetName() + " swings wildly::"
-						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " damage::";
+						"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
 				}
 			}
 		}

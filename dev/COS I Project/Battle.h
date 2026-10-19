@@ -41,6 +41,7 @@ namespace Battle
 				_enemy.PrintStats();
 
 				action =  "\n\r\033[2K\033[34C::\033[32m" + _enemy.GetName() + " Has Been Defeated, Congradulations!\033[0m::";		// store the win screen
+
 				Helper::Type(action, 45);								// print the win screen
 				Helper::Pause();
 				break;													// exit the battle sequence
@@ -68,6 +69,7 @@ namespace Battle
 				_enemy.PrintStats();
 
 				action = "\n\r\033[2K\033[50C::\033[31m...You Died...\033[0m::";		// store the lose screen
+
 				Helper::Type(action, 45);								// print the win screen
 				Helper::Pause();
 				break;													// exit the battle sequence
@@ -76,11 +78,6 @@ namespace Battle
 		}
 		return winner;
 	}
-
-
-
-
-
 
 };
 

@@ -11,6 +11,7 @@
 #include <iomanip>		// std::setw(3) << std::setfill('0')
 #include <Windows.h>	// FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE))
 #include <algorithm>	// std::shuffle
+#include <format>		// std::format(...)
 
 
 namespace Helper
