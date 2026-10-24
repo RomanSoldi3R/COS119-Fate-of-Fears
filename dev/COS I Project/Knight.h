@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cstdlib>
 #include <iomanip>
 #include "Helper.h"
 #include "Art.h"
@@ -27,11 +26,11 @@ class Knight : public Hero
 
 public:
 
-	Knight(const std::string& _name, int _health, int _attackPower);	// constructor
+	Knight(const std::string& _name, int _health, int _attackPower);		// constructor
 
-	void RecoverStamina(int amount);									// recover stamina method
+	void RecoverStamina(int amount);										// recover stamina method
 
-	void PrintStats(bool art = true) const override;					// overrides
+	void PrintStats(bool art = true) const override;						// overrides
 	std::string TakeDmg(float _physical, float _elemental = 0.0f) override;
 	std::string TakeTurn(Character& target) override;
 	void TurnOver() override;

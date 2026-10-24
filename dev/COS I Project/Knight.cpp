@@ -36,18 +36,18 @@ void Knight::PrintStats(bool art) const
 	if (art == false)
 	{
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C\033[33m" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[1;33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 	else
 	{
 		Art::KnightIcon();
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C\033[33m" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[1;33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 }
@@ -61,10 +61,9 @@ std::string Knight::TakeDmg(float _physical, float _elemental)
 	{
 		float physical = _physical;
 		
-		Character::TakeDmg(physical = physical / 2.5);						// damage taken is reduced by 60%
-		Character::TakeDmg(0, _elemental / 1.25);							// damage taken is reduced by 20%
+		Character::TakeDmg(physical = physical / 5, _elemental / 1.25);		// physical damage reduced by 80%, elemental damage reduced by 20%
 		
-		if (stamina <= physical + (_elemental / 5))							// if current stamina is less than or equal to 40% physical + 20% elemental damage taken
+		if (stamina <= physical + (_elemental / 5))							// if current stamina is less than or equal to 20% physical + 20% elemental damage taken
 		{
 			stamina = 0;													// set stamina to 0
 			blocking = false;												// breaks the block
@@ -72,13 +71,15 @@ std::string Knight::TakeDmg(float _physical, float _elemental)
 		}
 		else
 		{
-			stamina = stamina - (physical + (_elemental / 5));				// else lose stamina equal to 40% physical + 20% elemental damage taken
+			int total = (physical + (_elemental / 5));
+			stamina = stamina - total;										// else lose stamina equal to 20% physical + 20% elemental damage taken
+			result = " bashes your shield::"
+				"\r\033[2K\t::\033[31mYou lose " + std::to_string(total) + " stamina\033[0m::";
 		}
 	}
 	else
 	{
-		Character::TakeDmg(_physical);										// else if not blocking, take physical damage
-		Character::TakeDmg(0, _elemental);									// and take elemental damage
+		Character::TakeDmg(_physical, _elemental);							// else if not blocking, take normal damage
 	}
 	return result;
 }
@@ -99,7 +100,7 @@ std::string Knight::TakeTurn(Character& target)
 	int hitChance = Helper::RandomNumberGenerator(1, 20);					// 5% chance
 	int critChance = Helper::RandomNumberGenerator(1, 10);					// 10% chance
 	int critDamage = damage * 2;
-	int flee = Helper::RandomNumberGenerator(1, 4);							// 25% chance
+	int flee = Helper::RandomNumberGenerator(1, 2);							// 50% chance
 	int before = 0;
 	int after = 0;
 	int total = 0;
@@ -127,12 +128,12 @@ std::string Knight::TakeTurn(Character& target)
 					if (total >= before)
 					{
 						result = "\t::Critical Hit!::"
-							"\r\033[2K\t::You UNLEASH a MASSIVE blow for \033[33m" + std::to_string(critDamage) + "\033[0m \033[38;5;94mphysical\033[0m damage!::";
+							"\r\033[2K\t::You UNLEASH a MASSIVE blow for \033[33m" + std::to_string(critDamage) + " \033[38;5;94mphysical\033[0m damage!::";
 					}
 					else if (total >= critDamage)
 					{
 						result = "\t::Critical Hit!::"
-							"\r\033[2K\t::You UNLEASH a MASSIVE blow for \033[33m" + std::to_string(total) + "\033[0m \033[38;5;94mphysical\033[0m damage!::";
+							"\r\033[2K\t::You UNLEASH a MASSIVE blow for \033[33m" + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage!::";
 					}
 					else
 					{
@@ -177,7 +178,7 @@ std::string Knight::TakeTurn(Character& target)
 
 			for (const Ability& ability : skills)
 			{
-				std::cout << "\t" << counter++ << ". " << ability.GetAbilityName() << std::endl;
+				std::cout << "\t" << counter++ << ". " << ability.GetAbilityName() << "\r\033[40CCost: \033[1;33m" << std::setw(2) << std::setfill('0') << ability.GetAbilityCost() << "\033[0m" << std::endl;
 			}
 
 			inMenu = true;
@@ -249,11 +250,11 @@ std::string Knight::TakeTurn(Character& target)
 				after = GetHealth();
 				total = after - before;
 
-				result = "\t::\033[32mYou recovered +" + std::to_string(total) + " Health\033[0m::";
+				result = "\t::You recovered \033[1;32m+" + std::to_string(total) + " Health\033[0m::";
 				Helper::Type(result, 45);
 
 				std::cout << "\r\033[2A\033[24C{" << potionCount << "}\033[2B" << std::endl;
-				std::cout << "\r\033[08A\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "\033[0m\033[07B" << std::flush;
+				std::cout << "\r\033[08A\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "\033[0m\033[07B" << std::flush;
 				continue;
 			}
 			
@@ -294,14 +295,14 @@ void Knight::TurnOver()
 		if (stamina != maxStamina)
 		{
 			int before = stamina;
-			RecoverStamina(Helper::RandomNumberGenerator(1,5) + 5);
+			RecoverStamina(Helper::RandomNumberGenerator(1,10) + 5);
 			int after = stamina;
 			int total = after - before;
 
 			staminaCount = 0;
 			std::cout << "\r\033[2K";
-			Helper::ErasePreviousLines(5);
-			Helper::Type("\t::\033[33mYou recovered " + std::to_string(total) + " stamina\033[0m::", 45);
+			Helper::ErasePreviousLines(4);
+			Helper::Type("\t::You recovered \033[1;33m+" + std::to_string(total) + " stamina\033[0m::", 45);
 			Helper::Pause();
 		}
 	}

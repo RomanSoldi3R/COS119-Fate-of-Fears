@@ -325,80 +325,80 @@ void Castle::Move(int index)
 		{
 			if (floorplan[currentRoom].GetRoomName() == "Entrance Hall 2FL")
 			{
-				result = "\r\033[10B\033[32CYou ascend the Grand Staircase to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+				result = "\r\033[13B\033[32CYou ascend the Grand Staircase to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 			}
 			if (floorplan[currentRoom].GetRoomName() == "West Tower" || floorplan[currentRoom].GetRoomName() == "East Tower")
 			{
-				result = "\r\033[10B\033[46CYou ascend the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+				result = "\r\033[13B\033[46CYou ascend the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 			}
 			if (floorplan[lastRoom].GetRoomName() == "Dungeon")
 			{
-				result = "\r\033[10B\033[31CYou feel relieved as you find your way out of the \033[1;33m" + floorplan[lastRoom].GetRoomName() + "\033[0m\n";
+				result = "\r\033[13B\033[31CYou feel relieved as you find your way out of the \033[1;33m" + floorplan[lastRoom].GetRoomName() + "\033[0m\n";
 			}
 			if (floorplan[currentRoom].GetRoomName() == "Dungeon")
 			{
-				result = "\r\033[10B\033[32CYou remain cautious as you make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+				result = "\r\033[13B\033[32CYou remain cautious as you make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 			}
 		}
 		else if (door.GetDirection() == DOWN) 
 		{
 			if (floorplan[currentRoom].GetRoomName() == "Entrance Hall")
 			{
-				result = "\r\033[10B\033[33CYou descend the Grand Staircase to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+				result = "\r\033[13B\033[33CYou descend the Grand Staircase to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 			}
 			if (floorplan[lastRoom].GetRoomName() == "West Tower" || floorplan[lastRoom].GetRoomName() == "East Tower")
 			{
-				result = "\r\033[10B\033[46CYou descend the \033[1;33m" + floorplan[lastRoom].GetRoomName() + "\033[0m\n";
+				result = "\r\033[13B\033[46CYou descend the \033[1;33m" + floorplan[lastRoom].GetRoomName() + "\033[0m\n";
 			}
 			if (floorplan[currentRoom].GetRoomName() == "Dungeon")
 			{
-				result = "\r\033[10B\033[30CYou hear groans and mad screams as you descend into the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+				result = "\r\033[13B\033[30CYou hear groans and mad screams as you descend into the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 			}
 			if (floorplan[currentRoom].GetRoomName() == "Catacombs")
 			{
-				result = "\r\033[10B\033[33CThe air fills with smells of blood and rotting flesh"
+				result = "\r\033[13B\033[33CThe air fills with smells of blood and rotting flesh"
 					"\r\033[2K\033[26CYou hear something very unsettling as you descend into the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 			}
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Entrance Hall")
 		{
-			result = "\r\033[10B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Alchemist's Lab")
 		{
-			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Portrait Gallery")
 		{
-			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[40CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Observatory")
 		{
-			result = "\r\033[10B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Banquet Hall")
 		{
-			result = "\r\033[10B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[42CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Master Bedroom")
 		{
-			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Dressing Room")
 		{
-			result = "\r\033[10B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Hall of Mirrors")
 		{
-			result = "\r\033[10B\033[40CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[40CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Throne Room")
 		{
-			result = "\r\033[10B\033[48CYour \033[1;33mFate \033[0mAwaits You...\n";
+			result = "\r\033[13B\033[48CYour \033[1;33mFate \033[0mAwaits You...\n";
 		}
 		else
 		{
-			result = "\r\033[10B\033[43CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[43CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 
 	}

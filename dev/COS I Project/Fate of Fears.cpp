@@ -1,17 +1,17 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include <conio.h>
 #include <memory>
 #include "Helper.h"
 #include "Art.h"
 #include "Menus.h"
+#include "Dialog.h"
+#include "Battle.h"
 #include "Castle.h"
 #include "Character.h"
 #include "Knight.h"
 #include "Sorceress.h"
-#include "Battle.h"
 #include "Goblin.h"
+#include "FinalBoss.h"
 
 
 int main()
@@ -21,9 +21,8 @@ int main()
 	int enter = 13;
 	int c = 99;
 	bool titleMenu = true;
-	std::string dialog;
-
-	while (titleMenu)															// start of the title menu loop
+	
+	while (titleMenu)		//================================== Main Menu ==================================
 	{
 		Menu::TitleMenu();
 
@@ -31,19 +30,17 @@ int main()
 		if (key == enter)														// if player presses enter continue to hero menu
 		{
 			bool heroMenu = true;												// resets the heroMenu variable to true in case the player hits esc changing it to false, you can enter the hero menu again
-			std::unique_ptr<Hero> hero;
+			std::unique_ptr<Hero> hero;											// unique_ptr: automatically manages the lifetime of a heap-allocated object
 
-			while (heroMenu)													// start of the hero menu loop
+			while (heroMenu)		//================================== Class Selection ==================================
 			{
 				Menu::HeroMenu();
 
 				int key = _getch();												// accepts one key press
 				if (key == '1')													// if key press is 1 - create knight
 				{
-					
-					hero = std::make_unique<Knight>("Knight", 100, 25);
-					heroMenu = false;
-					
+					hero = std::make_unique<Knight>("Knight", 100, 25);			// make_unique: safely constructs an new object on the heap and returns an std::make_unique<T>(args...) wrapped inside a unique_ptr<T>
+					heroMenu = false;	
 				}
 				if (key == '2')													// if key press is 2 - create sorcerer
 				{
@@ -57,18 +54,9 @@ int main()
 				
 			}
 
-			if (hero != nullptr)
+			if (hero != nullptr)												// if a hero was created
 			{
-				Helper::clearScreen();
-				Art::CastleGateArt();
-				
-				dialog = "\r\033[15A\033[38CYou approach the Main Gate to the Castle...\n\n"
-					"\033[41C\033[31mFear\033[0m can be your greatest strength,\n\n" 
-					"\033[42CBut if you let it consume you...\n\n"
-					"\033[37CYour \033[1;33mFate\033[0m will be decided before it begins...\n";
-
-				Helper::Type(dialog, 85);
-				Helper::Pause();
+				Dialog::CastleDialog();
 
 				Castle castle;
 				bool result = true;
@@ -80,40 +68,57 @@ int main()
 					castle.InView(*hero);
 
 					int key = _getch();
-					if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5')
+					if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5')		// if key press is 1-5
 					{
-						int index = key - '0' - 1;
+						int index = key - '0' - 1;												// key press is then converted to the correct position ( '1' (ascii value: 49) - '0' (ascii value: 48) = 1 - 1 = 0 (position) then stores that in index
+						int fightChance = Helper::RandomNumberGenerator(1, 3);					// 33% fight chance
 
 						castle.Move(index);
 
-						int fightChance = Helper::RandomNumberGenerator(1, 4);
-						if (fightChance == 1)
+						if (castle.GetCurrentRoom() == THRONEROOM)
 						{
-							Goblin goblin("Goblin", 100, 10);
-							result = Battle::Sequence(*hero, goblin);
-
-							if (result == false)
+							FinalBoss boss("Wrath", 300, 25);
+							result = Battle::Sequence(*hero, boss);
+							
+							if (result == false)												// if you lose
 							{
-								inCastle = false;
+								inCastle = false;												// return to the main menu
+								break;
+							}
+							if (result == true)													// if you win
+							{
+								inCastle = false;												// return to the main menu (for now)
+								break;
+							}
+						}
+						else if (fightChance == 1)												// if fight happens
+						{
+							Dialog::FightDialog();
+
+							Goblin goblin("Goblin", 100, 10);									// create a goblin object
+							result = Battle::Sequence(*hero, goblin);							// battle sequence returns a true/false for whoever wins
+
+							if (result == false)												// if you lose
+							{
+								inCastle = false;												// return to the main menu
 								break;
 							}
 						}
 					}
-					if (key == esc)
+					if (key == esc)																// if key press is esc
 					{
-						inCastle = Menu::Options(key);
+						inCastle = Menu::Options(key);											// options returns a bool so if the key press returns a false, return to the main menu
 					}
 
-
-				}		//================================== CASTLE ==================================
+				}		
 
 			}
 
 		}
-		if (key == c)															// controls menu at the main menu
+		if (key == c)															// if key press is 'c'
 		{
 			int controlsMenu = true;
-			while (controlsMenu)
+			while (controlsMenu)		//================================== Controls Menu (Main Menu) ==================================
 			{
 				Menu::ControlsMenu();
 
@@ -124,16 +129,12 @@ int main()
 				}
 			}
 		}
-		if (key == esc)															// else set title menu to false which exits the game
+		if (key == esc)															// if key press is esc
 		{
-			titleMenu = false;
+			titleMenu = false;													// exit the game
 		}
 
 	}
-
-
-
-	  
 
 }
 

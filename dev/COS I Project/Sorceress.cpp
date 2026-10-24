@@ -5,11 +5,11 @@ Sorceress::Sorceress(const std::string& _name, int _health, int _attackPower) :
 	Hero(_name, _health, _attackPower),
 	mana(200),
 	maxMana(200),
-	potionCount(5),
 	shield(false),
 	shieldCount(0),
+	potionCount(5),
 	spellbook{
-		Ability("Fireball", 24, 0, 45),
+		Ability("Fireball", 24, 0, 55),
 		Ability("Mana Shield", 20),
 		Ability("Heal", 32) }
 {}
@@ -35,18 +35,18 @@ void Sorceress::PrintStats(bool art) const
 	if (art == false)
 	{
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C\033[35m" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[1;35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 	else
 	{
 		Art::SorceressIcon();
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C\033[35m" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[1;35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 }
@@ -61,12 +61,15 @@ std::string Sorceress::TakeDmg(float _physical, float _elemental)
 	{	
 		float elemental = _elemental;
 
-		Character::TakeDmg(_physical / 1.11);								// physical damage taken is reduced by 10%
-		Character::TakeDmg(0, elemental = elemental / 5);					// elemental damage taken is reduced by 80%
+		Character::TakeDmg(_physical / 1.25, elemental = elemental / 5);	// physical damage reduced by 20%, elemental damage reduced by 80%
 
 		if (shieldResistance != 1)
 		{
-			if (mana <= _elemental / 2.5)									// if current mana is less than or equal to both dmg types
+			if (elemental <= 0)
+			{
+				result = " hits you through your shield::";
+			}
+			else if (mana <= _elemental / 2.5)								// if current mana is less than or equal to 40% of the elemental damage
 			{
 				mana = 0;													// set mana to 0
 				shield = false;												// breaks the shield
@@ -74,7 +77,10 @@ std::string Sorceress::TakeDmg(float _physical, float _elemental)
 			}
 			else
 			{
-				mana = mana - (_elemental / 2.5);							// else lose mana based off %40 of the elemental damage taken  
+				int total = (_elemental / 2.5);
+				mana = mana - total;										// else lose mana based off %40 of the elemental damage taken
+				result = " hits you through your shield::"
+					"\r\033[2K\t::\033[31mYou lose " + std::to_string(total) + " mana\033[0m::";
 			}
 		}
 		else
@@ -85,8 +91,7 @@ std::string Sorceress::TakeDmg(float _physical, float _elemental)
 	}
 	else
 	{
-		Character::TakeDmg(_physical * 1.25);								// else if not shielded, take 25% more physical damage
-		Character::TakeDmg(0, _elemental * 1.25);							// and take 25% more elemental damage
+		Character::TakeDmg(_physical * 1.25, _elemental);					// else if not shielded, take 25% more physical damage
 	}
 	return result;
 }
@@ -105,7 +110,7 @@ std::string Sorceress::TakeTurn(Character& target)
 	int hitChance = Helper::RandomNumberGenerator(1, 10);					// 10% chance
 	int critChance = Helper::RandomNumberGenerator(1, 10);					// 10% chance
 	int critDamage = damage * 2;
-	int flee = Helper::RandomNumberGenerator(1, 4);							// 25% chance
+	int flee = Helper::RandomNumberGenerator(1, 3);							// 50% chance
 	int before = 0;
 	int after = 0;
 	int total = 0;
@@ -133,12 +138,12 @@ std::string Sorceress::TakeTurn(Character& target)
 					if (total >= before)
 					{
 						result = "\t::Critical Hit!::"
-							"\r\033[2K\t::You WHIRL a PRECISE spell for \033[33m" + std::to_string(critDamage) + "\033[0m \033[35mmagic\033[0m damage!::";
+							"\r\033[2K\t::You WHIRL a PRECISE spell for \033[33m" + std::to_string(critDamage) + " \033[35mmagic\033[0m damage!::";
 					}
 					else if (total >= critDamage)
 					{
 						result = "\t::Critical Hit!::"
-							"\r\033[2K\t::You WHIRL a PRECISE spell for \033[33m" + std::to_string(total) + "\033[0m \033[35mmagic\033[0m damage!::";
+							"\r\033[2K\t::You WHIRL a PRECISE spell for \033[33m" + std::to_string(total) + " \033[35mmagic\033[0m damage!::";
 					}
 					else
 					{
@@ -183,7 +188,7 @@ std::string Sorceress::TakeTurn(Character& target)
 
 			for (const Ability& ability : spellbook)
 			{
-				std::cout << "\t" << counter++ << ". " << ability.GetAbilityName() << std::endl;
+				std::cout << "\t" << counter++ << ". " << ability.GetAbilityName() << "\r\033[40CCost: \033[1;35m" << std::setw(2) << std::setfill('0') << ability.GetAbilityCost() << "\033[0m" << std::endl;
 			}
 
 			inMenu = true;
@@ -235,12 +240,12 @@ std::string Sorceress::TakeTurn(Character& target)
 								if (total >= before)
 								{
 									result = "\t::Critical Hit!::"
-										"\r\033[2K\t::You UNLEASH a MASSIVE Fireball for \033[33m" + std::to_string(critDamage) + "\033[0m \033[31mfire\033[0m damage!::";
+										"\r\033[2K\t::You UNLEASH a MASSIVE Fireball for \033[33m" + std::to_string(critDamage) + " \033[31mfire\033[0m damage!::";
 								}
 								else if (total >= critDamage)
 								{
 									result = "\t::Critical Hit!::"
-										"\r\033[2K\t::You UNLEASH a MASSIVE Fireball for \033[33m" + std::to_string(total) + "\033[0m \033[31mfire\033[0m damage!::";
+										"\r\033[2K\t::You UNLEASH a MASSIVE Fireball for \033[33m" + std::to_string(total) + " \033[31mfire\033[0m damage!::";
 								}
 								else
 								{
@@ -296,7 +301,7 @@ std::string Sorceress::TakeTurn(Character& target)
 						shieldCount = 1;
 
 						shield = true;										// shield is up 
-						result = "\t::You cast \033[35mMana Shield\033[0m::";
+						result = "\t::You cast \033[1;35mMana Shield\033[0m::";
 						running = false;
 						inMenu = false;
 						break;
@@ -323,12 +328,12 @@ std::string Sorceress::TakeTurn(Character& target)
 						mana = mana - spellbook[HEAL].GetAbilityCost();		// uses mana up
 
 						before = GetHealth();
-						Heal(Helper::RandomNumberGenerator(1, 40) + 25);	// heals 25 + (1 out 0f 40)
+						Heal(Helper::RandomNumberGenerator(1, 25) + 45);	// heals 45 + (1 out 0f 25)
 						after = GetHealth();
 						total = after - before;
 
 						Helper::ErasePreviousLines(counter - 1);
-						result = "\t::You cast Heal for \033[32m+" + std::to_string(total) + " Health\033[0m::";
+						result = "\t::You cast Heal for \033[1;32m+" + std::to_string(total) + " Health\033[0m::";
 						running = false;
 						inMenu = false;
 						break;
@@ -366,11 +371,11 @@ std::string Sorceress::TakeTurn(Character& target)
 				total = after - before;
 
 				std::cout << "\r\033[2K";
-				result = "\t::\033[35mYou restore +" + std::to_string(total) + " Mana\033[0m::";
+				result = "\t::You restore \033[1;35m+" + std::to_string(total) + " Mana\033[0m::";
 				Helper::Type(result, 45);
 
 				std::cout << "\r\033[2A\033[23C{" << potionCount << "}\033[2B" << std::endl;
-				std::cout << "\r\033[07A\033[41C\033[35m" << std::setw(3) << std::setfill('0') << mana << "\033[0m\033[06B" << std::flush;
+				std::cout << "\r\033[07A\033[41C\033[1;35m" << std::setw(3) << std::setfill('0') << mana << "\033[0m\033[06B" << std::flush;
 				continue;
 			}
 
@@ -406,13 +411,13 @@ void Sorceress::TurnOver()
 	if (mana != maxMana)
 	{
 		int before = mana;
-		RecoverMana(Helper::RandomNumberGenerator(1,5) + 5);
+		RecoverMana(Helper::RandomNumberGenerator(1,10) + 15);
 		int after = mana;
 		int total = after - before;
 
 		std::cout << "\r\033[2K";
 		Helper::ErasePreviousLines(4);
-		Helper::Type("\t::\033[35mYou recovered " + std::to_string(total) + " mana\033[0m::", 45);
+		Helper::Type("\t::You recovered \033[1;35m+" + std::to_string(total) + " mana\033[0m::", 45);
 		Helper::Pause();
 	}
 	if (shield)
@@ -425,7 +430,7 @@ void Sorceress::TurnOver()
 		shieldCount = 0;
 		std::cout << "\r\033[2K";
 		Helper::ErasePreviousLines(3);
-		Helper::Type("\t::\033[35mMana shield wore off\033[0m::", 45);
+		Helper::Type("\t::\033[31mMana shield wore off\033[0m::", 45);
 		Helper::Pause();
 	}
 }
