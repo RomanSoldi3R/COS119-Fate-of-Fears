@@ -1,5 +1,5 @@
 #pragma once
-#include "Pathway Enums.h"
+#include "PathwayEnums.h"
 
 
 class Pathway

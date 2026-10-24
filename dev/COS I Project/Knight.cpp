@@ -61,10 +61,9 @@ std::string Knight::TakeDmg(float _physical, float _elemental)
 	{
 		float physical = _physical;
 		
-		Character::TakeDmg(physical = physical / 2.5);						// damage taken is reduced by 60%
-		Character::TakeDmg(0, _elemental / 1.25);							// damage taken is reduced by 20%
+		Character::TakeDmg(physical = physical / 5, _elemental / 1.25);		// physical damage reduced by 80%, elemental damage reduced by 20%
 		
-		if (stamina <= physical + (_elemental / 5))							// if current stamina is less than or equal to 40% physical + 20% elemental damage taken
+		if (stamina <= physical + (_elemental / 5))							// if current stamina is less than or equal to 20% physical + 20% elemental damage taken
 		{
 			stamina = 0;													// set stamina to 0
 			blocking = false;												// breaks the block
@@ -73,15 +72,14 @@ std::string Knight::TakeDmg(float _physical, float _elemental)
 		else
 		{
 			int total = (physical + (_elemental / 5));
-			stamina = stamina - total;										// else lose stamina equal to 40% physical + 20% elemental damage taken
+			stamina = stamina - total;										// else lose stamina equal to 20% physical + 20% elemental damage taken
 			result = " bashes your shield::"
 				"\r\033[2K\t::\033[31mYou lose " + std::to_string(total) + " stamina\033[0m::";
 		}
 	}
 	else
 	{
-		Character::TakeDmg(_physical);										// else if not blocking, take physical damage
-		Character::TakeDmg(0, _elemental);									// and take elemental damage
+		Character::TakeDmg(_physical, _elemental);							// else if not blocking, take normal damage
 	}
 	return result;
 }
@@ -297,7 +295,7 @@ void Knight::TurnOver()
 		if (stamina != maxStamina)
 		{
 			int before = stamina;
-			RecoverStamina(Helper::RandomNumberGenerator(1,5) + 5);
+			RecoverStamina(Helper::RandomNumberGenerator(1,10) + 5);
 			int after = stamina;
 			int total = after - before;
 

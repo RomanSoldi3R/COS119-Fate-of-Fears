@@ -54,20 +54,34 @@ What I plan to do next is implement an enemy class, ascii art for the knight and
 Next I plan to implement the Castle/dungeon exploration and opening dialog. That makes it so when the character picks a class, they can then explore rooms, fight enemies and find secrets.
 ### Week 3
 
-- ⚙️ **Overview** – What did you work on this past week?
+⚙️ **Overview** – What did you work on this past week?
     This past week I have worked on so much compared to any other week. I have completed my Room Label namespace which I renamed Pathway enums so it made more sense to me. the Pathway Class which held a direction and a room label. A Room Class which held a room name and a vector of pathways. The castle class which created my castle and held a floorplan which that held a vector of rooms in order to create the castle. I created a has visited, in view, and a move method which drew the view of the rooms and made it so the player can move from room to room. I worked on a menu namespace to hold all of my menus. I added a flee option and finally caught up on some art for the game.  
     
-- 🛠️ **Improvements** – What changes, refinements, or new features did you make?
+🛠️ **Improvements** – What changes, refinements, or new features did you make?
     I made a ton of improvements this week. I added a menu namespace to hold all my menus past, present and future so a lot of reorganizing. I made it so you can now access the options menu and control menu in the game. I added a flee option so that you have a chance to run if you don't want to fight. After getting the navigation completed, I reworked all the menus to with some color and better placement to help with readability.
     
-- 🌵 **Challenges** – What obstacles did you encounter, and how are you addressing them?
+🌵 **Challenges** – What obstacles did you encounter, and how are you addressing them?
     Obstacles I've encountered were mostly from creating the navigation system. There's a lot I have learned with vectors this week that I'm surprised I forgot such as .pop back, or .back which were really helpful to look at the last spot in the vector. I had a good time just getting practice in with vectors within vectors and enums which I don't use enough. I addressed these issues by constantly researching and asking questions about how I can better understand what I had written so far because I was constantly forgetting what my pathway constructor held when it was in my room constructor and then that room constructor was in a vector called floorplan in my castle. I'm only now getting understanding it but there was a lot of looking back and forth going on.
     
-- 💬 **Feedback** – What feedback have you received, and how will it influence your next steps?
+💬 **Feedback** – What feedback have you received, and how will it influence your next steps?
     I have received feedback about controls and potential improvements. I did end up adding the options and controls menu. I was thinking of adding a beastiary but I'm still unsure. As well as a suggestion for an inventory, that might make it considering I'm already thinking about a loot system.
     
-- 🔮 **Next Steps** – What is your primary goal for Week 4?
+🔮 **Next Steps** – What is your primary goal for Week 4?
 	My primary goal is to add the loot system and final boss. With those implemented, The game would be complete and ready for player testing.
 ### Week 4
 
-My final stand up...
+⚙️ **Overview** – What did you accomplish this past week?
+    This past week I have completed my dialog header file for better organization of the dialog lines. I have also completed my Boss Class.
+    
+🛠️ **Project Wrap-Up** – What did you finish, polish, or improve before submitting your final project?
+    Along with the dialog and Boss class, I have polished the UI for readability such as the cost of skills/spells and color highlights to make the stats pop. I have tested for balance as well as polished the text feedback so each next line typed out, erases the previous ones as intended. 
+    
+🌵 **Challenges** – What obstacles did you face, and how did you overcome them?
+    A lot of the challenges I've faced this week were some that I have previously encountered so I ended up referencing my other classes to keep them all looking the same in style.
+    
+📚 **Biggest Takeaway** – Looking back, what was the most valuable thing you learned during this course?
+    During this course, the most valuable thing I've learned would probably be when to think about documenting and the importance of practicing programming. Putting everything I've learned into practice heled me understand about code more than I have in the past 3 months.
+    
+🔮 **Future Development** – If you continued this project after the course, what would you build or improve next?
+	 I wasn't able to implement the loot system this week so that's something I'd like to continue with. Also adding more dialog and possibly music. Once I do that then I would just keep adding to the games combat loop to make it more fun until I am satisfied.
+	 

@@ -17,7 +17,7 @@ namespace Battle
 			_hero.PrintStats();
 			_enemy.PrintStats();
 
-			action = _hero.TakeTurn(_enemy);							// returns a string which is stored in action
+			action = _hero.TakeTurn(_enemy);		//================================== Hero's Turn ==================================
 			
 			if (action == "\t::You fled the battle!::")					// if string matches
 			{
@@ -40,7 +40,7 @@ namespace Battle
 				_hero.PrintStats();
 				_enemy.PrintStats();
 
-				action =  "\n\r\033[2K\033[34C::\033[32m" + _enemy.GetName() + " Has Been Defeated, Congradulations!\033[0m::";		// store the win screen
+				action =  "\n\r\033[2K\033[35C::\033[32m" + _enemy.GetName() + " Has Been Defeated, Congradulations!\033[0m::\n";		// store the win screen
 
 				Helper::Type(action, 45);								// print the win screen
 				Helper::Pause();
@@ -51,7 +51,7 @@ namespace Battle
 			_hero.PrintStats();
 			_enemy.PrintStats();
 
-			action = _enemy.TakeTurn(_hero);
+			action = _enemy.TakeTurn(_hero);		//================================== Enemy's Turn ==================================
 			
 			Helper::clearScreen();
 			_hero.PrintStats();
@@ -68,12 +68,13 @@ namespace Battle
 				_hero.PrintStats();
 				_enemy.PrintStats();
 
-				action = "\n\r\033[2K\033[50C::\033[31m...You Died...\033[0m::";		// store the lose screen
+				action = "\n\r\033[2K\033[50C::\033[31m...You Died...\033[0m::\n";		// store the lose screen
 
 				Helper::Type(action, 45);								// print the win screen
 				Helper::Pause();
 				break;													// exit the battle sequence
 			}
+			_enemy.TurnOver();
 			_hero.TurnOver();											// resource regen if possible
 		}
 		return winner;

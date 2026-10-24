@@ -2,7 +2,7 @@
 #include "Hero.h"
 #include <iostream>
 #include <string>
-#include <cstdlib>
+#include <vector>
 #include <iomanip>
 #include "Helper.h"
 #include "Art.h"
@@ -14,9 +14,9 @@ class Sorceress : public Hero
 {
 	int mana;
 	int maxMana;
-	int potionCount;
 	bool shield;
 	int shieldCount;
+	int potionCount;
 	std::vector<Ability> spellbook;
 
 	enum SpellList

@@ -370,7 +370,7 @@ void Castle::Move(int index)
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Portrait Gallery")
 		{
-			result = "\r\033[13B\033[41CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
+			result = "\r\033[13B\033[40CYou make your way to the \033[1;33m" + floorplan[currentRoom].GetRoomName() + "\033[0m\n";
 		}
 		else if (floorplan[currentRoom].GetRoomName() == "Observatory")
 		{

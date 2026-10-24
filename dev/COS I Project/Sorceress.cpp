@@ -5,11 +5,11 @@ Sorceress::Sorceress(const std::string& _name, int _health, int _attackPower) :
 	Hero(_name, _health, _attackPower),
 	mana(200),
 	maxMana(200),
-	potionCount(5),
 	shield(false),
 	shieldCount(0),
+	potionCount(5),
 	spellbook{
-		Ability("Fireball", 24, 0, 45),
+		Ability("Fireball", 24, 0, 55),
 		Ability("Mana Shield", 20),
 		Ability("Heal", 32) }
 {}
@@ -61,12 +61,15 @@ std::string Sorceress::TakeDmg(float _physical, float _elemental)
 	{	
 		float elemental = _elemental;
 
-		Character::TakeDmg(_physical / 1.11);								// physical damage taken is reduced by 10%
-		Character::TakeDmg(0, elemental = elemental / 5);					// elemental damage taken is reduced by 80%
+		Character::TakeDmg(_physical / 1.25, elemental = elemental / 5);	// physical damage reduced by 20%, elemental damage reduced by 80%
 
 		if (shieldResistance != 1)
 		{
-			if (mana <= _elemental / 2.5)									// if current mana is less than or equal to both dmg types
+			if (elemental <= 0)
+			{
+				result = " hits you through your shield::";
+			}
+			else if (mana <= _elemental / 2.5)								// if current mana is less than or equal to 40% of the elemental damage
 			{
 				mana = 0;													// set mana to 0
 				shield = false;												// breaks the shield
@@ -88,8 +91,7 @@ std::string Sorceress::TakeDmg(float _physical, float _elemental)
 	}
 	else
 	{
-		Character::TakeDmg(_physical * 1.25);								// else if not shielded, take 25% more physical damage
-		Character::TakeDmg(0, _elemental * 1.25);							// and take 25% more elemental damage
+		Character::TakeDmg(_physical * 1.25, _elemental);					// else if not shielded, take 25% more physical damage
 	}
 	return result;
 }
@@ -326,7 +328,7 @@ std::string Sorceress::TakeTurn(Character& target)
 						mana = mana - spellbook[HEAL].GetAbilityCost();		// uses mana up
 
 						before = GetHealth();
-						Heal(Helper::RandomNumberGenerator(1, 40) + 25);	// heals 25 + (1 out 0f 40)
+						Heal(Helper::RandomNumberGenerator(1, 25) + 45);	// heals 45 + (1 out 0f 25)
 						after = GetHealth();
 						total = after - before;
 
@@ -409,7 +411,7 @@ void Sorceress::TurnOver()
 	if (mana != maxMana)
 	{
 		int before = mana;
-		RecoverMana(Helper::RandomNumberGenerator(1,5) + 5);
+		RecoverMana(Helper::RandomNumberGenerator(1,10) + 15);
 		int after = mana;
 		int total = after - before;
 

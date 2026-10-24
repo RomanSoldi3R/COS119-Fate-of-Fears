@@ -92,6 +92,7 @@ namespace Helper
 
 		while (true)
 		{
+			std::cout << "\r\033[1A\033[2K#: ";
 			getline(std::cin, input);
 
 			try
@@ -100,16 +101,18 @@ namespace Helper
 			}
 			catch (const std::exception&)
 			{
-
+				std::cout << "Invalid Input, Please try again";
+				continue;
 			}
 			
 			if (result >= min && result <= max)
 			{
+				std::cout << "\r\033[2K";
 				return result;
 			}
 			else
 			{
-				std::cout << "Invalid Input: Please try again" << std::endl;
+				std::cout << "Invalid Input, Please try again";
 			}
 		}
 	}

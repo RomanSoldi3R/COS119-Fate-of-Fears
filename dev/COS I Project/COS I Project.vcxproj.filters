@@ -48,7 +48,7 @@
     <ClCompile Include="Pathway.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Final_Boss.cpp">
+    <ClCompile Include="FinalBoss.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +92,7 @@
     <ClInclude Include="Pathway.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pathway Enums.h">
+    <ClInclude Include="PathwayEnums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menus.h">
@@ -101,7 +101,7 @@
     <ClInclude Include="Dialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Final_Boss.h">
+    <ClInclude Include="FinalBoss.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

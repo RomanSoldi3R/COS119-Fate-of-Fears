@@ -1,6 +1,4 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include <conio.h>
 #include <memory>
 #include "Helper.h"
@@ -13,6 +11,7 @@
 #include "Knight.h"
 #include "Sorceress.h"
 #include "Goblin.h"
+#include "FinalBoss.h"
 
 
 int main()
@@ -72,11 +71,27 @@ int main()
 					if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5')		// if key press is 1-5
 					{
 						int index = key - '0' - 1;												// key press is then converted to the correct position ( '1' (ascii value: 49) - '0' (ascii value: 48) = 1 - 1 = 0 (position) then stores that in index
+						int fightChance = Helper::RandomNumberGenerator(1, 3);					// 33% fight chance
 
 						castle.Move(index);
 
-						int fightChance = Helper::RandomNumberGenerator(1, 3);					// 33% fight chance
-						if (fightChance == 1)													// if fight happens
+						if (castle.GetCurrentRoom() == THRONEROOM)
+						{
+							FinalBoss boss("Wrath", 300, 25);
+							result = Battle::Sequence(*hero, boss);
+							
+							if (result == false)												// if you lose
+							{
+								inCastle = false;												// return to the main menu
+								break;
+							}
+							if (result == true)													// if you win
+							{
+								inCastle = false;												// return to the main menu (for now)
+								break;
+							}
+						}
+						else if (fightChance == 1)												// if fight happens
 						{
 							Dialog::FightDialog();
 
