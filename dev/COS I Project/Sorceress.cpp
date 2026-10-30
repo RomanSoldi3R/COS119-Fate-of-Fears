@@ -36,8 +36,8 @@ void Sorceress::PrintStats(bool art) const
 	{
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C\033[35m" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[1;35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill(' ') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[1;35m" << std::setw(3) << std::setfill(' ') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 	else
@@ -45,8 +45,8 @@ void Sorceress::PrintStats(bool art) const
 		Art::SorceressIcon();
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m||\033[0m\r\033[25C\033[35m" << GetName() << "\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[1;35m" << std::setw(3) << std::setfill('0') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill(' ') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[35m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[35m||\033[0m Mana: \r\033[41C\033[1;35m" << std::setw(3) << std::setfill(' ') << mana << "/" << maxMana << "\033[0m\r\033[48C\033[35m || \033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[35m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 }
@@ -411,7 +411,7 @@ void Sorceress::TurnOver()
 	if (mana != maxMana)
 	{
 		int before = mana;
-		RecoverMana(Helper::RandomNumberGenerator(1,10) + 15);
+		RecoverMana(Helper::RandomNumberGenerator(1,10) + 10);
 		int after = mana;
 		int total = after - before;
 

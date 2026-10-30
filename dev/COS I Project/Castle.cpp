@@ -10,7 +10,7 @@ Castle::Castle() :
 		Pathway(WEST, WESTWING),
 		Pathway(NORTH, ROOM1),
 		Pathway(EAST, EASTWING),
-		Pathway(UP, GRANDSTAIRCASE)
+		Pathway(UP, ENTRANCE2FL)
 	}));
 
 	visited.push_back(currentRoom);
@@ -56,12 +56,12 @@ Castle::Castle() :
 		Pathway(SOUTH, ROOM3)
 	}));
 	floorplan.push_back(Room(castleRooms[ROOM6 - 1], {
-		Pathway(EAST, GRANDSTAIRCASE)
+		Pathway(EAST, ENTRANCE2FL)
 	}));
 	floorplan.push_back(Room(castleRooms[ROOM7 - 1], {
 		Pathway(WEST, MASTERBEDROOM),
 		Pathway(EAST, ROOM8),
-		Pathway(SOUTH, GRANDSTAIRCASE)
+		Pathway(SOUTH, ENTRANCE2FL)
 	}));
 	floorplan.push_back(Room(castleRooms[ROOM8 - 1], {
 		Pathway(WEST, ROOM7),
@@ -285,9 +285,10 @@ void Castle::Move(int index)
 		{
 			Helper::clearScreen();
 
-			std::cout << "\r\033[10B\033[48C\033[31mReady To Face Your Fears?\033[0m" << std::endl;
-			std::cout << "\r\033[53CEnter: Proceed" << std::endl;
-			std::cout << "\r\033[52CEsc: Return Later" << std::endl;
+			std::cout << "\r\033[10B\t\033[31m=><=><=><=><=><=><=><=><=><=><=><=><=><=><= \033[1;33m" << floorplan[THRONEROOM].GetRoomName() << "\033[0m\033[31m =><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m\n" << std::endl;
+			std::cout << "\033[42C\033[31mAre You Ready To Face Your Fears?\033[0m\n" << std::endl;
+			std::cout << "\r\033[51CEnter: Proceed" << std::endl;
+			std::cout << "\r\033[50CEsc: Return Later" << std::endl;
 
 			if (Helper::EnterEsc())
 			{

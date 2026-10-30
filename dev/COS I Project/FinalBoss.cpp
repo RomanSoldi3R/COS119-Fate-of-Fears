@@ -12,8 +12,8 @@ void FinalBoss::PrintStats() const
 {
 	std::cout << "\r\033[5A\033[67C\033[38;5;245m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	std::cout << "\r\033[67C\033[38;5;245m||\033[0m" << "\r\033[86C\033[31m" << GetName() << "\r\033[108C" << "\033[38;5;245m||\033[0m" << std::endl;
-	std::cout << "\r\033[67C\033[38;5;245m||\033[0m Health: " << "\r\033[100C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << std::setw(3) << std::setfill('0') << GetMaxHealth() << "\033[0m\r\033[108C" << "\033[38;5;245m||\033[0m" << std::endl;
-	std::cout << "\r\033[67C\033[38;5;245m||\033[0m Rage:" << "\r\033[104C\033[31m" << std::setw(2) << std::setfill('0') << rage << "%\033[0m\r\033[108C" << "\033[38;5;245m||\033[0m" << std::endl;
+	std::cout << "\r\033[67C\033[38;5;245m||\033[0m Health: " << "\r\033[100C\033[1;32m" << std::setw(3) << std::setfill(' ') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[108C" << "\033[38;5;245m||\033[0m" << std::endl;
+	std::cout << "\r\033[67C\033[38;5;245m||\033[0m Rage:" << "\r\033[104C\033[31m" << std::setw(2) << std::setfill(' ') << rage << "%\033[0m\r\033[108C" << "\033[38;5;245m||\033[0m" << std::endl;
 	std::cout << "\r\033[67C\033[38;5;245m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 }
 
@@ -89,24 +89,29 @@ std::string FinalBoss::TakeTurn(Character& target)
 				if (total >= before)										// if overkill, print normal High Damage
 				{
 					result = "\r\033[67C::Critical Hit!::"
-						"\r\033[2K\033[67C::" + GetName() + " lands a METEOR STRIKE for \033[33m" + std::to_string(critDamage) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
+						"\r\033[2K\033[67C::" + GetName() + " lands a METEOR STRIKE for \033[33m" + std::to_string(critDamage) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
 				}
 				else if (total >= critDamage * 2)							// if crit, print total damage
 				{
 					result = "\r\033[67C::Critical Hit!::"
-						"\r\033[2K\033[67C::" + GetName() + " lands a METEOR STRIKE for  \033[33m" + std::to_string(total) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
+						"\r\033[2K\033[67C::" + GetName() + " lands a METEOR STRIKE for  \033[33m" + std::to_string(total) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
 				}
 				else
 				{
 					if (!broken.empty())									// if breaks player's shields that reduces their resource to 0, print that out
 					{
 						result = "\r\033[67C::" + GetName() + " lands a METEOR STRIKE!::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage" + "\r\033[2K\t::" + GetName() + broken;
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage" + 
+							"\r\033[2K\t::" + GetName() + broken;
 					}
 					else													// else hits player's shields, print reduced damage
 					{
 						result = "\r\033[67C::" + GetName() + " lands a METEOR STRIKE!::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage::";
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage::";
 					}
 				}
 			}
@@ -120,24 +125,29 @@ std::string FinalBoss::TakeTurn(Character& target)
 				if (total >= before)										// if overkill
 				{
 					result = "\r\033[67C::Critical Hit!::"
-						"\r\033[2K\033[67C::" + GetName() + " lands a CRUSHING BLOW for \033[33m" + std::to_string(critDamage) + " \033[38;5;94mphysical\033[0m damage::";
+						"\r\033[2K\033[67C::" + GetName() + " lands a CRUSHING BLOW for \033[33m" + std::to_string(critDamage) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m damage::";
 				}
 				else if (total >= critDamage)
 				{
 					result = "\r\033[67C::Critical Hit!::"
-						"\r\033[2K\033[67C::" + GetName() + " lands a CRUSHING BLOW for \033[33m" + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
+						"\r\033[2K\033[67C::" + GetName() + " lands a CRUSHING BLOW for \033[33m" + std::to_string(total) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m damage::";
 				}
 				else
 				{
 					if (!broken.empty())
 					{
 						result = "\r\033[67C::" + GetName() + " lands a CRUSHING BLOW!::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::" + "\r\033[2K\t::" + GetName() + broken;
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m damage::" + 
+							"\r\033[2K\t::" + GetName() + broken;
 					}
 					else
 					{
 						result = "\r\033[67C::" + GetName() + " lands a CRUSHING BLOW!::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m damage::";
 					}
 				}
 			}
@@ -154,23 +164,28 @@ std::string FinalBoss::TakeTurn(Character& target)
 
 				if (total >= before)										// if kill
 				{
-					result = "\r\033[67C::" + GetName() + " CRUSHES you for " + std::to_string(damage) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
+					result = "\r\033[67C::" + GetName() + " CRUSHES you for " + std::to_string(damage) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
 				}
 				else if (total >= damage * 2)
 				{
-					result = "\r\033[67C::" + GetName() + " CRUSHES you for " + std::to_string(total) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
+					result = "\r\033[67C::" + GetName() + " CRUSHES you for " + std::to_string(total) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
 				}
 				else
 				{
 					if (!broken.empty())
 					{
 						result = "\r\033[67C::" + GetName() + " swings with rage::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::" + "\r\033[2K\t::" + GetName() + broken;
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::" + 
+							"\r\033[2K\t::" + GetName() + broken;
 					}
 					else
 					{
 						result = "\r\033[67C::" + GetName() + " swings with rage::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m and\033[31m fire\033[0m damage!::";
 					}
 				}
 			}
@@ -183,23 +198,28 @@ std::string FinalBoss::TakeTurn(Character& target)
 
 				if (total >= before)										// if kill
 				{
-					result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(damage) + " \033[38;5;94mphysical\033[0m damage::";
+					result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(damage) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m damage::";
 				}
 				else if (total >= damage)
 				{
-					result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
+					result = "\r\033[67C::" + GetName() + " hits you for " + std::to_string(total) + 
+						"\r\033[2K\033[38;5;94mphysical\033[0m damage::";
 				}
 				else
 				{
 					if (!broken.empty())
 					{
 						result = "\r\033[67C::" + GetName() + " swings wildly::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::" + "\r\033[2K\t::" + GetName() + broken;
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m damage::" + 
+							"\r\033[2K\t::" + GetName() + broken;
 					}
 					else
 					{
 						result = "\r\033[67C::" + GetName() + " swings wildly::"
-							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + " \033[38;5;94mphysical\033[0m damage::";
+							"\r\033[2K\033[67C::But only deals " + std::to_string(total) + 
+							"\r\033[2K\033[38;5;94mphysical\033[0m damage::";
 					}
 				}
 			}

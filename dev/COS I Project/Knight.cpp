@@ -37,8 +37,8 @@ void Knight::PrintStats(bool art) const
 	{
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C\033[33m" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[1;33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill(' ') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[1;33m" << std::setw(3) << std::setfill(' ') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 	else
@@ -46,8 +46,8 @@ void Knight::PrintStats(bool art) const
 		Art::KnightIcon();
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[33m||\033[0m\r\033[27C\033[33m" << GetName() << "\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill('0') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
-		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[1;33m" << std::setw(3) << std::setfill('0') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Health: \r\033[41C\033[1;32m" << std::setw(3) << std::setfill(' ') << GetHealth() << "/" << GetMaxHealth() << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
+		std::cout << "\r\033[8C\033[33m||\033[0m Stamina: \r\033[41C\033[1;33m" << std::setw(3) << std::setfill(' ') << stamina << "/" << maxStamina << "\033[0m\r\033[49C\033[33m||\033[0m" << std::endl;
 		std::cout << "\r\033[8C\033[33m=><=><=><=><=><=><=><=><=><=><=><=><=><=><=\033[0m" << std::endl;
 	}
 }
